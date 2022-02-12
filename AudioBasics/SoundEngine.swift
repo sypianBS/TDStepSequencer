@@ -47,6 +47,8 @@ class SoundEngine {
         }
     }
     
+    //node explanation https://youtu.be/FlMaxen2eyw?t=391
+    //shortly speaking, there are 3 notes types: source (player, microphone), process (mixer, fx), destination (speaker)
     private lazy var sourceNode = AVAudioSourceNode { _, _, frameCount, audioBufferList in
         let ablPointer = UnsafeMutableAudioBufferListPointer(audioBufferList)
                 
