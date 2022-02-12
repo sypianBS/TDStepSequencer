@@ -9,13 +9,33 @@ import SwiftUI
 
 struct ContentView: View {
     @State var playSound = false
+    @State var selectedPitch: Pitch? = nil
+    typealias Pitch = SoundEngine.Pitch
     
     var body: some View {
-        Button(action: {
+        HStack {
+            ForEach(Pitch.allCases, content: {
+                pitch in
+                pitchButton(pitch: pitch)
+            })
+        }
+    }
+    
+    func pitchButton(pitch: Pitch) -> some View {
+        
+        let pitchDictionary: [Pitch : Float] = [Pitch.C1 : 220, Pitch.C2 : 440, Pitch.C3 : 880]
+        
+        return Button(action: {
+            selectedPitch = pitch
             playSound.toggle()
             SoundEngine.shared.volume = playSound ? 0.5 : 0.0
+            SoundEngine.shared.frequency = pitchDictionary[pitch]!
         }, label: {
-            Text(playSound ? "Stop playing sine" : "Play sine")
+            if playSound {
+                Text(selectedPitch == pitch ? "Stop \(pitch.rawValue)" : "Play \(pitch.rawValue)")
+            } else {
+                Text("Play \(pitch.rawValue)")
+            }
         })
     }
 }

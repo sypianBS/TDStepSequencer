@@ -9,6 +9,14 @@ import AVFoundation
 
 class SoundEngine {
     
+    enum Pitch: String, CaseIterable, Identifiable {
+        var id: Self { self } //enums can usually be identified by their selves
+        
+        case C1
+        case C2
+        case C3
+    }
+    
     public static let shared = SoundEngine()
     
     private var audioEngine: AVAudioEngine
