@@ -11,6 +11,8 @@
 		C3037EA827B7D366008BD68B /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3037EA727B7D366008BD68B /* ContentView.swift */; };
 		C3037EAA27B7D36D008BD68B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C3037EA927B7D36D008BD68B /* Assets.xcassets */; };
 		C3037EAD27B7D36D008BD68B /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C3037EAC27B7D36D008BD68B /* Preview Assets.xcassets */; };
+		C3037EB427B7D4A5008BD68B /* Oscillator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3037EB327B7D4A5008BD68B /* Oscillator.swift */; };
+		C3037EB627B7D69E008BD68B /* SoundEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3037EB527B7D69E008BD68B /* SoundEngine.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -19,6 +21,8 @@
 		C3037EA727B7D366008BD68B /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		C3037EA927B7D36D008BD68B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C3037EAC27B7D36D008BD68B /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		C3037EB327B7D4A5008BD68B /* Oscillator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Oscillator.swift; sourceTree = "<group>"; };
+		C3037EB527B7D69E008BD68B /* SoundEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundEngine.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,6 +59,8 @@
 				C3037EA727B7D366008BD68B /* ContentView.swift */,
 				C3037EA927B7D36D008BD68B /* Assets.xcassets */,
 				C3037EAB27B7D36D008BD68B /* Preview Content */,
+				C3037EB327B7D4A5008BD68B /* Oscillator.swift */,
+				C3037EB527B7D69E008BD68B /* SoundEngine.swift */,
 			);
 			path = AudioBasics;
 			sourceTree = "<group>";
@@ -137,6 +143,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C3037EB627B7D69E008BD68B /* SoundEngine.swift in Sources */,
+				C3037EB427B7D4A5008BD68B /* Oscillator.swift in Sources */,
 				C3037EA827B7D366008BD68B /* ContentView.swift in Sources */,
 				C3037EA627B7D366008BD68B /* AudioBasicsApp.swift in Sources */,
 			);

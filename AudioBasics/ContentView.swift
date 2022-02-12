@@ -8,9 +8,15 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State var playSound = false
+    
     var body: some View {
-        Text("Hello, world!")
-            .padding()
+        Button(action: {
+            playSound.toggle()
+            SoundEngine.shared.volume = playSound ? 0.5 : 0.0
+        }, label: {
+            Text(playSound ? "Stop playing sine" : "Play sine")
+        })
     }
 }
 
