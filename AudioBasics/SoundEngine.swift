@@ -94,7 +94,7 @@ class SoundEngine {
         audioEngine.connect(sourceNode, to: mainMixer, format: inputFormat)
         audioEngine.connect(mainMixer, to: outputNode, format: nil)
         mainMixer.outputVolume = 0
-        
+         
         do {
             try audioEngine.start()
         } catch {
