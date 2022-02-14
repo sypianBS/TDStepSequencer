@@ -8,8 +8,9 @@
 import SwiftUI
 
 struct ContentView: View {
+    @StateObject var sequencerViewModel = SequencerViewModel()
     @State var playSound = false
-    @State var selectedPitch: Double? = nil
+    @State var selectedPitch: Float? = nil
     let thirdOctave = Octave(octaveNumber: 3)
     typealias Pitch = SoundEngine.Pitch
     
@@ -28,16 +29,27 @@ struct ContentView: View {
             }, label: {
                 Text("change to saw")
             })
+            
+            Button(action: {
+                let thirdOctaveFreq = thirdOctave.getArrayOfNotesFrequencies()
+                let notesSequence: [Float] = [thirdOctaveFreq[2], thirdOctaveFreq[1], thirdOctaveFreq[4], thirdOctaveFreq[4], thirdOctaveFreq[2], thirdOctaveFreq[1], thirdOctaveFreq[2]]
+                sequencerViewModel.noteFrequenciesToPlay = notesSequence
+                sequencerViewModel.startTimer()
+            }, label: {
+                Text("Play a sequence of notes")
+            })
         }
     }
     
-    func pitchButton(noteFrequency: Double) -> some View {
+    
+    
+    func pitchButton(noteFrequency: Float) -> some View {
         
         return Button(action: {
             selectedPitch = noteFrequency
             playSound.toggle()
             SoundEngine.shared.volume = playSound ? 0.5 : 0.0
-            SoundEngine.shared.frequency = Float(noteFrequency)
+            SoundEngine.shared.frequency = noteFrequency
         }, label: {
             if playSound {
 //                Text(selectedPitch == pitch ? "Stop \(pitch.rawValue)" : "Play \(pitch.rawValue)")

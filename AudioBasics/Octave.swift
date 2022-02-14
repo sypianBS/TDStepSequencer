@@ -9,66 +9,66 @@ import Foundation
 
 class Octave {
     var octaveNumber: Int
-    let numberOfSemitones: Double = 12
-    let A1frequency: Double = 55 //frequency of the A1 note
+    let numberOfSemitones: Float = 12
+    let A1frequency: Float = 55 //frequency of the A1 note
     
     init(octaveNumber: Int) {
         self.octaveNumber = octaveNumber
     }
     
-    var a: Double {
-        A1frequency * pow(2, Double(octaveNumber) - 1) //we multiply by successive powers of 2: 1, 2, 4, 8, 16...
+    var a: Float {
+        A1frequency * pow(2, Float(octaveNumber) - 1) //we multiply by successive powers of 2: 1, 2, 4, 8, 16...
     }
     
-    var b: Double {
+    var b: Float {
         getFrequency(distanceToANote: 2)
     }
     
-    var aSharp: Double {
+    var aSharp: Float {
         getFrequency(distanceToANote: 1)
     }
         
-    var gSharp: Double {
+    var gSharp: Float {
         getFrequency(distanceToANote: -1)
     }
     
-    var g: Double {
+    var g: Float {
         getFrequency(distanceToANote: -2)
     }
     
-    var fSharp: Double {
+    var fSharp: Float {
         getFrequency(distanceToANote: -3)
     }
     
-    var f: Double {
+    var f: Float {
         getFrequency(distanceToANote: -4)
     }
     
-    var e: Double {
+    var e: Float {
         getFrequency(distanceToANote: -5)
     }
     
-    var dSharp: Double {
+    var dSharp: Float {
         getFrequency(distanceToANote: -6)
     }
     
-    var d: Double {
+    var d: Float {
         getFrequency(distanceToANote: -7)
     }
     
-    var cSharp: Double {
+    var cSharp: Float {
         getFrequency(distanceToANote: -8)
     }
     
-    var c: Double {
+    var c: Float {
         getFrequency(distanceToANote: -9)
     }
     
-    func getArrayOfNotesFrequencies() -> [Double] {
+    func getArrayOfNotesFrequencies() -> [Float] {
         return [a ,aSharp, b, c, cSharp, d, dSharp, e, f, fSharp, g, gSharp]
     }
     
-    private func getFrequency(distanceToANote: Double) -> Double {
+    private func getFrequency(distanceToANote: Float) -> Float {
         return a * pow(2, distanceToANote/numberOfSemitones)
     }
 }
