@@ -14,11 +14,19 @@ struct ContentView: View {
     typealias Pitch = SoundEngine.Pitch
     
     var body: some View {
+        VStack {
         HStack {
             //id: \.self -> frequencies are unique
             ForEach(thirdOctave.getArrayOfNotesFrequencies(), id: \.self, content: {
                 noteFrequency in
                 pitchButton(noteFrequency: noteFrequency)
+            })
+        }
+            
+            Button(action: {
+                SoundEngine.shared.setWaveformTo(Oscillator.saw)
+            }, label: {
+                Text("change to saw")
             })
         }
     }

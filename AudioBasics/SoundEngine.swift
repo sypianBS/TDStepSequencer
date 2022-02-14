@@ -102,4 +102,8 @@ class SoundEngine {
         }
     }
     
+    public func setWaveformTo(_ signal: @escaping Signal) {
+        self.signal = signal
+    }
+    
 }
