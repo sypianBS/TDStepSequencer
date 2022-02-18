@@ -12,7 +12,9 @@ struct ContentView: View {
     @State var playSound = false
     @State var selectedPitch: Float? = nil
     let thirdOctave = Octave(octaveNumber: 3)
+    @State var selectedRate: SequencerRate = .sixteenth
     typealias Pitch = SoundEngine.Pitch
+    typealias SequencerRate = SequencerViewModel.SequencerRate
     
     var body: some View {
         VStack {
@@ -38,7 +40,16 @@ struct ContentView: View {
             }, label: {
                 Text("Play a sequence of notes")
             })
-        }
+            
+            Picker(selection: $selectedRate, label: Text("Rate")) {
+                ForEach(SequencerRate.allCases, id: \.self) {
+                    Text($0.rawValue.description)
+                }
+            }.pickerStyle(SegmentedPickerStyle())
+        }.onChange(of: selectedRate, perform: {
+            newRate in
+            sequencerViewModel.setRate(rate: newRate)
+        })
     }
     
     
