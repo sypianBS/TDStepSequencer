@@ -43,7 +43,7 @@ struct ContentView: View {
             
             Picker(selection: $selectedRate, label: Text("Rate")) {
                 ForEach(SequencerRate.allCases, id: \.self) {
-                    Text($0.rawValue.description)
+                    Text($0.description)
                 }
             }.pickerStyle(SegmentedPickerStyle())
         }.onChange(of: selectedRate, perform: {

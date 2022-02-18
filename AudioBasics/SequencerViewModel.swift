@@ -26,12 +26,27 @@ class SequencerViewModel: ObservableObject {
         self.rate = rate.rawValue
     }
     
-    enum SequencerRate: Double, CaseIterable {
+    enum SequencerRate: Double, CaseIterable, CustomStringConvertible {
         case whole = 1
         case half = 0.5
         case quarter = 0.25
         case eight = 0.125
         case sixteenth = 0.0625
+        
+        var description: String {
+            switch self {
+            case .whole:
+                return "1"
+            case .half:
+                return "1/2"
+            case .quarter:
+                return "1/4"
+            case .eight:
+                return "1/8"
+            case .sixteenth:
+                return "1/16"
+            }
+        }
     }
 
     @objc func updateTimer() {
