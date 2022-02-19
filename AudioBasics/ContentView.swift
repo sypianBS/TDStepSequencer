@@ -51,7 +51,7 @@ struct ContentView: View {
             }.pickerStyle(SegmentedPickerStyle())
         }.onChange(of: selectedWaveform, perform: {
             newWaveform in
-            SoundEngine.shared.setWaveformTo(waveform: newWaveform)
+            sequencerViewModel.setWaveformTo(waveform: newWaveform)
         })
         .onChange(of: selectedRate, perform: {
             newRate in

@@ -13,6 +13,7 @@ class SequencerViewModel: ObservableObject {
     var counter = 0
     var bpm: Int = 120 //house music tempo
     var rate: Double = SequencerRate.sixteenth.rawValue //most common rate among the step sequencers
+    private var currentVolume: Float = 0.5
     
     //example: 120 bpm means 120 quarter notes / minute -> 2 quarter notes / second -> 1 quarter note / 0.5 second. So for a rate of 1/4 and bpm of 120, we need to multiplly by 4 to get 0.5s at the end
     var sequencerTimeInterval: Double {
@@ -30,6 +31,21 @@ class SequencerViewModel: ObservableObject {
     func setRate(rate: SequencerRate) {
         self.rate = rate.rawValue
     }
+    
+    func setWaveformTo(waveform: Oscillator.Waveform) {
+        switch waveform {
+        case .sine:
+            currentVolume = 0.5
+            SoundEngine.shared.signal = Oscillator.sine
+        case .saw:
+            currentVolume = 0.15
+            SoundEngine.shared.signal = Oscillator.saw
+        case .square:
+            currentVolume = 0.15
+            SoundEngine.shared.signal = Oscillator.square
+        }
+    }
+
     
     enum SequencerRate: Double, CaseIterable, CustomStringConvertible {
         case whole = 1
@@ -55,7 +71,7 @@ class SequencerViewModel: ObservableObject {
     }
 
     @objc func updateTimer() {
-        SoundEngine.shared.volume = 0.5
+        SoundEngine.shared.volume = currentVolume
         if counter < noteFrequenciesToPlay.count {
             SoundEngine.shared.frequency = noteFrequenciesToPlay[counter]
             counter += 1

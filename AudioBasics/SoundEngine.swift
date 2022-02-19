@@ -24,7 +24,7 @@ class SoundEngine {
     private var time: Float = 0
     private let sampleRate: Double
     private let deltaTime: Float
-    private var signal: Signal
+    var signal: Signal
     
     public var volume: Float {
         set {
@@ -99,17 +99,6 @@ class SoundEngine {
             try audioEngine.start()
         } catch {
             print("Could not start engine: \(error.localizedDescription)")
-        }
-    }
-    
-    public func setWaveformTo(waveform: Oscillator.Waveform) {
-        switch waveform {
-            case .sine:
-                self.signal = Oscillator.sine
-            case .saw:
-                self.signal = Oscillator.saw
-            case .square:
-                self.signal = Oscillator.square
         }
     }
 }
