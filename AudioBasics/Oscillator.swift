@@ -3,7 +3,7 @@
 //  AudioBasics
 //
 //  Created by Beniamin on 12.02.22.
-//
+//  based on the https://developer.apple.com/documentation/avfaudio/audio_engine/building_a_signal_generator
 
 import Foundation
 
@@ -12,7 +12,7 @@ typealias Signal = (_ frequency: Float, _ time: Float) -> Float
 struct Oscillator {
     
     enum Waveform: Int {
-        case sine, saw, square, whiteNoise
+        case sine, saw, square
     }
     
     static var amplitude: Float = 1
@@ -32,9 +32,5 @@ struct Oscillator {
         let period = 1.0 / Double(frequency)
         let currentTime = fmod(Double(time), period)
         return ((currentTime / period) < 0.5) ? Oscillator.amplitude : -1.0 * Oscillator.amplitude
-    }
-    
-    static let whiteNoise: Signal = { frequency, time in
-        return Oscillator.amplitude * Float.random(in: -1...1)
     }
 }
