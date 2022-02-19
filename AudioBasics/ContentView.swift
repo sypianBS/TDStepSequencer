@@ -11,6 +11,7 @@ struct ContentView: View {
     @StateObject var sequencerViewModel = SequencerViewModel()
     @State var playSound = false
     @State var selectedPitch: Float? = nil
+    @State private var bpm = 120
     let thirdOctave = Octave(octaveNumber: 3)
     @State var selectedRate: SequencerRate = .sixteenth
     typealias Pitch = SoundEngine.Pitch
@@ -18,6 +19,7 @@ struct ContentView: View {
     
     var body: some View {
         VStack {
+            Stepper("BPM: \(bpm)", value: $bpm, in: 20...200)
         HStack {
             //id: \.self -> frequencies are unique
             ForEach(thirdOctave.getArrayOfNotesFrequencies(), id: \.self, content: {
@@ -49,6 +51,9 @@ struct ContentView: View {
         }.onChange(of: selectedRate, perform: {
             newRate in
             sequencerViewModel.setRate(rate: newRate)
+        }).onChange(of: bpm, perform: {
+            newBPM in
+            sequencerViewModel.setBpm(bpm: newBPM)
         })
     }
     
