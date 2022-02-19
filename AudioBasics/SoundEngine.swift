@@ -102,8 +102,14 @@ class SoundEngine {
         }
     }
     
-    public func setWaveformTo(_ signal: @escaping Signal) {
-        self.signal = signal
+    public func setWaveformTo(waveform: Oscillator.Waveform) {
+        switch waveform {
+            case .sine:
+                self.signal = Oscillator.sine
+            case .saw:
+                self.signal = Oscillator.saw
+            case .square:
+                self.signal = Oscillator.square
+        }
     }
-    
 }

@@ -11,7 +11,7 @@ typealias Signal = (_ frequency: Float, _ time: Float) -> Float
 
 struct Oscillator {
     
-    enum Waveform: Int {
+    enum Waveform: String, CaseIterable {
         case sine, saw, square
     }
     

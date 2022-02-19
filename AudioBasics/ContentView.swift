@@ -14,6 +14,7 @@ struct ContentView: View {
     @State private var bpm = 120
     let thirdOctave = Octave(octaveNumber: 3)
     @State var selectedRate: SequencerRate = .sixteenth
+    @State var selectedWaveform: Oscillator.Waveform = .sine
     typealias Pitch = SoundEngine.Pitch
     typealias SequencerRate = SequencerViewModel.SequencerRate
     
@@ -27,12 +28,12 @@ struct ContentView: View {
                 pitchButton(noteFrequency: noteFrequency)
             })
         }
-            
-            Button(action: {
-                SoundEngine.shared.setWaveformTo(Oscillator.saw)
-            }, label: {
-                Text("change to saw")
-            })
+        
+            Picker(selection: $selectedWaveform, label: Text("Rate")) {
+                ForEach(Oscillator.Waveform.allCases, id: \.self) {
+                    Text($0.rawValue)
+                }
+            }.pickerStyle(SegmentedPickerStyle())
             
             Button(action: {
                 let thirdOctaveFreq = thirdOctave.getArrayOfNotesFrequencies()
@@ -48,7 +49,11 @@ struct ContentView: View {
                     Text($0.description)
                 }
             }.pickerStyle(SegmentedPickerStyle())
-        }.onChange(of: selectedRate, perform: {
+        }.onChange(of: selectedWaveform, perform: {
+            newWaveform in
+            SoundEngine.shared.setWaveformTo(waveform: newWaveform)
+        })
+        .onChange(of: selectedRate, perform: {
             newRate in
             sequencerViewModel.setRate(rate: newRate)
         }).onChange(of: bpm, perform: {
