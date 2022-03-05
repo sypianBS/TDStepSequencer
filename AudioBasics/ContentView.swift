@@ -23,14 +23,6 @@ struct ContentView: View {
         NavigationView {
             VStack {
                 Stepper(UtilStrings.bpm +  ": \(bpm)", value: $bpm, in: 20...200)
-                HStack {
-                    //id: \.self -> frequencies are unique
-                    ForEach(thirdOctave.getArrayOfNotesFrequencies(), id: \.self, content: {
-                        noteFrequency in
-                        pitchButton(noteFrequency: noteFrequency)
-                    })
-                }
-                
                 Picker(selection: $selectedWaveform, label: Text("Rate")) {
                     ForEach(Oscillator.Waveform.allCases, id: \.self) {
                         Text($0.rawValue)
@@ -68,7 +60,9 @@ struct ContentView: View {
                     Text("show list")
                         .foregroundColor(.gray)
                 }
-            }.onChange(of: selectedWaveform, perform: {
+            }
+            .padding(.horizontal, 16)
+            .onChange(of: selectedWaveform, perform: {
                 newWaveform in
                 sequencerViewModel.setWaveformTo(waveform: newWaveform)
             })
@@ -80,26 +74,6 @@ struct ContentView: View {
                     sequencerViewModel.setBpm(bpm: newBPM)
                 })
         }
-    }
-    
-    
-    
-    func pitchButton(noteFrequency: Float) -> some View {
-        
-        return Button(action: {
-            selectedPitch = noteFrequency
-            playSound.toggle()
-            SoundEngine.shared.volume = playSound ? 0.5 : 0.0
-            SoundEngine.shared.frequency = noteFrequency
-        }, label: {
-            if playSound {
-//                Text(selectedPitch == pitch ? "Stop \(pitch.rawValue)" : "Play \(pitch.rawValue)")
-                Text("Stop")
-            } else {
-//                Text("Play \(pitch.rawValue)")
-                Text("Play")
-            }
-        })
     }
 }
 
