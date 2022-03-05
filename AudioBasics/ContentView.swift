@@ -20,7 +20,7 @@ struct ContentView: View {
     
     var body: some View {
         VStack {
-            Stepper("BPM: \(bpm)", value: $bpm, in: 20...200)
+            Stepper(UtilStrings.bpm +  ": \(bpm)", value: $bpm, in: 20...200)
         HStack {
             //id: \.self -> frequencies are unique
             ForEach(thirdOctave.getArrayOfNotesFrequencies(), id: \.self, content: {
@@ -42,7 +42,7 @@ struct ContentView: View {
                 sequencerViewModel.noteFrequenciesToPlay = randomTenNotesSequence
                 sequencerViewModel.startTimer()
             }, label: {
-                Text("Play a random sequence")
+                Text(UtilStrings.playARandomSequenceOfNotes)
             })
             
             Picker(selection: $selectedRate, label: Text("Rate")) {
