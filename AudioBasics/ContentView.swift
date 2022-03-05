@@ -13,7 +13,7 @@ struct ContentView: View {
     @State var selectedPitch: Float? = nil
     @State private var bpm = 120
     let thirdOctave = Octave(octaveNumber: 3)
-    @State var selectedRate: SequencerRate = .sixteenth
+    @State var selectedRate: SequencerRate = .eight
     @State var selectedWaveform: Oscillator.Waveform = .sine
     typealias Pitch = SoundEngine.Pitch
     typealias SequencerRate = SequencerViewModel.SequencerRate
@@ -37,11 +37,12 @@ struct ContentView: View {
             
             Button(action: {
                 let thirdOctaveFreq = thirdOctave.getArrayOfNotesFrequencies()
-                let notesSequence: [Float] = [thirdOctaveFreq[2], thirdOctaveFreq[1], thirdOctaveFreq[4], thirdOctaveFreq[4], thirdOctaveFreq[2], thirdOctaveFreq[1], thirdOctaveFreq[2]]
-                sequencerViewModel.noteFrequenciesToPlay = notesSequence
+                let tenRandomNotesArray = (1...10).map( {_ in Int.random(in: 0...11)} )
+                let randomTenNotesSequence = tenRandomNotesArray.map { thirdOctaveFreq[$0] }
+                sequencerViewModel.noteFrequenciesToPlay = randomTenNotesSequence
                 sequencerViewModel.startTimer()
             }, label: {
-                Text("Play a sequence of notes")
+                Text("Play a random sequence")
             })
             
             Picker(selection: $selectedRate, label: Text("Rate")) {
