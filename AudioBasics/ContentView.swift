@@ -46,6 +46,12 @@ struct ContentView: View {
                     Text($0.description)
                 }
             }.pickerStyle(SegmentedPickerStyle())
+            Button(action: { sequencerViewModel.storeSequence() }, label: {
+                Text("Save the sequence")
+            })
+            Button(action: { sequencerViewModel.printStoredSequence()}, label: {
+                Text("Print the stored sequence")
+            })
         }.onChange(of: selectedWaveform, perform: {
             newWaveform in
             sequencerViewModel.setWaveformTo(waveform: newWaveform)

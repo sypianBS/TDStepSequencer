@@ -9,6 +9,7 @@ import Foundation
 
 class SequencerViewModel: ObservableObject {
     @Published var noteFrequenciesToPlay: [Float] = []
+    let userDefaults = UserDefaults.standard
     var timer: Timer?
     var counter = 0
     var bpm: Int = 120 //house music tempo
@@ -25,6 +26,17 @@ class SequencerViewModel: ObservableObject {
         let tenRandomNotesArray = (1...10).map( {_ in Int.random(in: 0...11)} )
         noteFrequenciesToPlay = tenRandomNotesArray.map { thirdOctaveFreq[$0] }
         self.startTimer()
+    }
+    
+    func storeSequence() {
+        userDefaults.set(noteFrequenciesToPlay, forKey: "storedSequence")
+    }
+    
+    //just for development purposes
+    func printStoredSequence() {
+        if let storedNoteFrequenciesToPlay = userDefaults.object(forKey: "storedSequence") {
+            print(storedNoteFrequenciesToPlay)
+        }
     }
     
     private func startTimer() {
