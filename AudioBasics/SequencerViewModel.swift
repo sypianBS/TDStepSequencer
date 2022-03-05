@@ -33,15 +33,24 @@ class SequencerViewModel: ObservableObject {
         self.startTimer()
     }
     
-    func storeSequence() {        
+    func storeSequence() {
+        let keyToStore = prepareKeyName()
+        
         if var udNotesSequenceDictionary = userDefaults.object(forKey: UtilStrings.keyStoredSequence) as? [String:[Float]] {
-            udNotesSequenceDictionary["\(Date())"] = noteFrequenciesToPlay
+            udNotesSequenceDictionary[keyToStore] = noteFrequenciesToPlay
             notesSequenceDictionary = udNotesSequenceDictionary
             userDefaults.set(udNotesSequenceDictionary, forKey: UtilStrings.keyStoredSequence)
         } else {
-            notesSequenceDictionary["\(Date())"] = noteFrequenciesToPlay
+            notesSequenceDictionary[keyToStore] = noteFrequenciesToPlay
             userDefaults.set(notesSequenceDictionary, forKey: UtilStrings.keyStoredSequence)
         }
+    }
+    
+    private func prepareKeyName() -> String {
+        let today = Date()
+        let formatter = DateFormatter.dateAndTime
+        let keyToStore = "Sequence: " + formatter.string(from: today)
+        return keyToStore
     }
     
     //just for development purposes
@@ -113,4 +122,13 @@ class SequencerViewModel: ObservableObject {
             
         }
     }
+}
+
+//DateFormatter is computationally expensive so we don't want to create it multiple times
+extension DateFormatter {
+    static let dateAndTime: DateFormatter = {
+        let df = DateFormatter()
+        df.dateFormat = "HH:mm:ss E, d MMM y"
+        return df
+    }()
 }
