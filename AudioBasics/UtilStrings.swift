@@ -9,5 +9,5 @@ class UtilStrings {
     
     static let playARandomSequenceOfNotes = "Play a random sequence"
     static let bpm = "BPM"
-
+    static let keyStoredSequence = "storedSequence"
 }
