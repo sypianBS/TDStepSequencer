@@ -54,14 +54,20 @@ struct ContentView: View {
                 Button(action: { sequencerViewModel.printStoredSequence()}, label: {
                     Text("Print the stored sequence")
                 })
+                
                 NavigationLink("", isActive: $showSequencesList) {
-                    StoredSequencesView(notesSequenceDictionary: $sequencerViewModel.notesSequenceDictionary)
+                    StoredSequencesView(showView: $showSequencesList,  notesSequenceDictionary: $sequencerViewModel.notesSequenceDictionary)
                 }
-                Button(action: {
-                    showSequencesList = true
-                }, label: {
+                if sequencerViewModel.notesSequenceDictionary.count > 0 {
+                    Button(action: {
+                        showSequencesList = true
+                    }, label: {
+                        Text("show list")
+                    })
+                } else {
                     Text("show list")
-                })
+                        .foregroundColor(.gray)
+                }
             }.onChange(of: selectedWaveform, perform: {
                 newWaveform in
                 sequencerViewModel.setWaveformTo(waveform: newWaveform)

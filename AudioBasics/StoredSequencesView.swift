@@ -9,8 +9,9 @@ import Foundation
 import SwiftUI
 
 struct StoredSequencesView: View {
+    @Binding var showView: Bool
     @State var selectedEntry = ""
-    @Binding var notesSequenceDictionary: [String : [Float]]
+    @Binding var notesSequenceDictionary: [String : [Float]]    
     
     var body: some View {
         VStack {
@@ -32,6 +33,9 @@ struct StoredSequencesView: View {
         let index = offsets[offsets.startIndex]
         notesSequenceDictionary[sortedKeys[index]] = nil
         UserDefaults.standard.set(notesSequenceDictionary, forKey: UtilStrings.keyStoredSequence)
+        if notesSequenceDictionary.count == 0 {
+            showView = false
+        }
     }
 }
 
