@@ -12,6 +12,7 @@ struct ContentView: View {
     @State var playSound = false
     @State var selectedPitch: Float? = nil
     @State private var bpm = 120
+    @State var showSequencesList = false
     let thirdOctave = Octave(octaveNumber: 3)
     @State var selectedRate: SequencerRate = .eight
     @State var selectedWaveform: Oscillator.Waveform = .sine
@@ -19,50 +20,60 @@ struct ContentView: View {
     typealias SequencerRate = SequencerViewModel.SequencerRate
     
     var body: some View {
-        VStack {
-            Stepper(UtilStrings.bpm +  ": \(bpm)", value: $bpm, in: 20...200)
-        HStack {
-            //id: \.self -> frequencies are unique
-            ForEach(thirdOctave.getArrayOfNotesFrequencies(), id: \.self, content: {
-                noteFrequency in
-                pitchButton(noteFrequency: noteFrequency)
+        NavigationView {
+            VStack {
+                Stepper(UtilStrings.bpm +  ": \(bpm)", value: $bpm, in: 20...200)
+                HStack {
+                    //id: \.self -> frequencies are unique
+                    ForEach(thirdOctave.getArrayOfNotesFrequencies(), id: \.self, content: {
+                        noteFrequency in
+                        pitchButton(noteFrequency: noteFrequency)
+                    })
+                }
+                
+                Picker(selection: $selectedWaveform, label: Text("Rate")) {
+                    ForEach(Oscillator.Waveform.allCases, id: \.self) {
+                        Text($0.rawValue)
+                    }
+                }.pickerStyle(SegmentedPickerStyle())
+                
+                Button(action: {
+                    sequencerViewModel.generateARandomTenNotesSequence()
+                }, label: {
+                    Text(UtilStrings.playARandomSequenceOfNotes)
+                })
+                
+                Picker(selection: $selectedRate, label: Text("Rate")) {
+                    ForEach(SequencerRate.allCases, id: \.self) {
+                        Text($0.description)
+                    }
+                }.pickerStyle(SegmentedPickerStyle())
+                Button(action: { sequencerViewModel.storeSequence() }, label: {
+                    Text("Save the sequence")
+                })
+                Button(action: { sequencerViewModel.printStoredSequence()}, label: {
+                    Text("Print the stored sequence")
+                })
+                NavigationLink("", isActive: $showSequencesList) {
+                    StoredSequencesView(notesSequenceDictionary: $sequencerViewModel.notesSequenceDictionary)
+                }
+                Button(action: {
+                    showSequencesList = true
+                }, label: {
+                    Text("show list")
+                })
+            }.onChange(of: selectedWaveform, perform: {
+                newWaveform in
+                sequencerViewModel.setWaveformTo(waveform: newWaveform)
             })
+                .onChange(of: selectedRate, perform: {
+                    newRate in
+                    sequencerViewModel.setRate(rate: newRate)
+                }).onChange(of: bpm, perform: {
+                    newBPM in
+                    sequencerViewModel.setBpm(bpm: newBPM)
+                })
         }
-        
-            Picker(selection: $selectedWaveform, label: Text("Rate")) {
-                ForEach(Oscillator.Waveform.allCases, id: \.self) {
-                    Text($0.rawValue)
-                }
-            }.pickerStyle(SegmentedPickerStyle())
-            
-            Button(action: {
-                sequencerViewModel.generateARandomTenNotesSequence()
-            }, label: {
-                Text(UtilStrings.playARandomSequenceOfNotes)
-            })
-            
-            Picker(selection: $selectedRate, label: Text("Rate")) {
-                ForEach(SequencerRate.allCases, id: \.self) {
-                    Text($0.description)
-                }
-            }.pickerStyle(SegmentedPickerStyle())
-            Button(action: { sequencerViewModel.storeSequence() }, label: {
-                Text("Save the sequence")
-            })
-            Button(action: { sequencerViewModel.printStoredSequence()}, label: {
-                Text("Print the stored sequence")
-            })
-        }.onChange(of: selectedWaveform, perform: {
-            newWaveform in
-            sequencerViewModel.setWaveformTo(waveform: newWaveform)
-        })
-        .onChange(of: selectedRate, perform: {
-            newRate in
-            sequencerViewModel.setRate(rate: newRate)
-        }).onChange(of: bpm, perform: {
-            newBPM in
-            sequencerViewModel.setBpm(bpm: newBPM)
-        })
     }
     
     
