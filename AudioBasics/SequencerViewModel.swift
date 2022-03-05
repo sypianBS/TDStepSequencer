@@ -26,6 +26,11 @@ class SequencerViewModel: ObservableObject {
         return rate * 4 * (60 / Double(bpm))
     }
     
+    func playLoadedSequence(sequence: [Float]) {
+        noteFrequenciesToPlay = sequence
+        self.startTimer()
+    }
+    
     func generateARandomTenNotesSequence() {
         let thirdOctaveFreq = Octave(octaveNumber: 3).getArrayOfNotesFrequencies()
         let tenRandomNotesArray = (1...10).map( {_ in Int.random(in: 0...11)} )

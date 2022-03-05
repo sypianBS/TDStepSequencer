@@ -10,8 +10,8 @@ import SwiftUI
 
 struct StoredSequencesView: View {
     @Binding var showView: Bool
-    @State var selectedEntry = ""
-    @Binding var notesSequenceDictionary: [String : [Float]]    
+    @Binding var selectedEntry: [Float]
+    @Binding var notesSequenceDictionary: [String : [Float]]
     
     var body: some View {
         VStack {
@@ -19,7 +19,8 @@ struct StoredSequencesView: View {
                 ForEach(notesSequenceDictionary.keys.sorted(), id: \.self) { key in
                     Text(key)
                         .onTapGesture {
-                            selectedEntry = key
+                            selectedEntry = notesSequenceDictionary[key]!
+                            showView = false
                         }
                 }.onDelete(perform: removeRows)
             }

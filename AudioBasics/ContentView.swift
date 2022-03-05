@@ -16,6 +16,7 @@ struct ContentView: View {
     let thirdOctave = Octave(octaveNumber: 3)
     @State var selectedRate: SequencerRate = .eight
     @State var selectedWaveform: Oscillator.Waveform = .sine
+    @State var selectedEntry: [Float] = []
     typealias Pitch = SoundEngine.Pitch
     typealias SequencerRate = SequencerViewModel.SequencerRate
     
@@ -31,8 +32,15 @@ struct ContentView: View {
                 
                 Button(action: {
                     sequencerViewModel.generateARandomTenNotesSequence()
+                    selectedEntry = []
                 }, label: {
                     Text(UtilStrings.playARandomSequenceOfNotes)
+                })
+                
+                Button(action: {
+                    sequencerViewModel.playLoadedSequence(sequence: selectedEntry)
+                }, label: {
+                    Text("Play loaded sequence").foregroundColor(selectedEntry.count > 0 ? .blue : .gray)
                 })
                 
                 Picker(selection: $selectedRate, label: Text("Rate")) {
@@ -48,7 +56,7 @@ struct ContentView: View {
                 })
                 
                 NavigationLink("", isActive: $showSequencesList) {
-                    StoredSequencesView(showView: $showSequencesList,  notesSequenceDictionary: $sequencerViewModel.notesSequenceDictionary)
+                    StoredSequencesView(showView: $showSequencesList, selectedEntry: $selectedEntry,  notesSequenceDictionary: $sequencerViewModel.notesSequenceDictionary)
                 }
                 if sequencerViewModel.notesSequenceDictionary.count > 0 {
                     Button(action: {
@@ -66,13 +74,13 @@ struct ContentView: View {
                 newWaveform in
                 sequencerViewModel.setWaveformTo(waveform: newWaveform)
             })
-                .onChange(of: selectedRate, perform: {
-                    newRate in
-                    sequencerViewModel.setRate(rate: newRate)
-                }).onChange(of: bpm, perform: {
-                    newBPM in
-                    sequencerViewModel.setBpm(bpm: newBPM)
-                })
+            .onChange(of: selectedRate, perform: {
+                newRate in
+                sequencerViewModel.setRate(rate: newRate)
+            }).onChange(of: bpm, perform: {
+                newBPM in
+                sequencerViewModel.setBpm(bpm: newBPM)
+            })
         }
     }
 }
