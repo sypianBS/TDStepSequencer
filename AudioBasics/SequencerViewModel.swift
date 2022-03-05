@@ -20,7 +20,14 @@ class SequencerViewModel: ObservableObject {
         return rate * 4 * (60 / Double(bpm))
     }
     
-    func startTimer() {
+    func generateARandomTenNotesSequence() {
+        let thirdOctaveFreq = Octave(octaveNumber: 3).getArrayOfNotesFrequencies()
+        let tenRandomNotesArray = (1...10).map( {_ in Int.random(in: 0...11)} )
+        noteFrequenciesToPlay = tenRandomNotesArray.map { thirdOctaveFreq[$0] }
+        self.startTimer()
+    }
+    
+    private func startTimer() {
         timer = Timer.scheduledTimer(timeInterval: sequencerTimeInterval, target: self, selector: #selector(updateTimer), userInfo: nil, repeats: true)
     }
     

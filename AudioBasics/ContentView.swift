@@ -36,11 +36,7 @@ struct ContentView: View {
             }.pickerStyle(SegmentedPickerStyle())
             
             Button(action: {
-                let thirdOctaveFreq = thirdOctave.getArrayOfNotesFrequencies()
-                let tenRandomNotesArray = (1...10).map( {_ in Int.random(in: 0...11)} )
-                let randomTenNotesSequence = tenRandomNotesArray.map { thirdOctaveFreq[$0] }
-                sequencerViewModel.noteFrequenciesToPlay = randomTenNotesSequence
-                sequencerViewModel.startTimer()
+                sequencerViewModel.generateARandomTenNotesSequence()
             }, label: {
                 Text(UtilStrings.playARandomSequenceOfNotes)
             })
