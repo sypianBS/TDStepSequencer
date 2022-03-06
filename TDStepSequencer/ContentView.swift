@@ -17,7 +17,6 @@ struct ContentView: View {
     @State var selectedRate: SequencerRate = .eight
     @State var selectedWaveform: Oscillator.Waveform = .saw
     @State var selectedEntry: [Float] = []
-    @State var isPlaying = false
     let assetsSize: CGFloat = 24
     
     var body: some View {
@@ -41,7 +40,7 @@ struct ContentView: View {
                 _ in
                 if selectedEntry.count > 0 {
                     sequencerViewModel.playLoadedSequence(sequence: selectedEntry)
-                    isPlaying = true
+                    sequencerViewModel.isPlaying = true
                 }
             })
         }
@@ -76,17 +75,17 @@ struct ContentView: View {
             HStack(spacing: 16) {
                 Spacer()
                 Button(action: {
-                    if !isPlaying {
+                    if !sequencerViewModel.isPlaying {
                         selectedEntry = []
                         sequencerViewModel.generateARandomTenNotesSequence()
-                        isPlaying = true
+                        sequencerViewModel.isPlaying = true
                     } else {
                         sequencerViewModel.stopPlaying()
                         selectedEntry = []
-                        isPlaying = false
+                        sequencerViewModel.isPlaying = false
                     }
                 }, label: {
-                    Image(systemName: isPlaying ? "playpause.fill" : "playpause")
+                    Image(systemName: sequencerViewModel.isPlaying ? "playpause.fill" : "playpause")
                         .font(.system(size: assetsSize))
                 })
                 

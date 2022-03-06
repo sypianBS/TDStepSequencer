@@ -9,13 +9,14 @@ import Foundation
 
 class SequencerViewModel: ObservableObject {
     @Published var noteFrequenciesToPlay: [Float] = []
+    @Published var isPlaying = false
+    @Published var notesSequenceDictionary: [String : [Float]]
     let userDefaults = UserDefaults.standard
     var timer: Timer?
     var counter = 0
     var bpm: Int = 120 //house music tempo
     var rate: Double = SequencerRate.eight.rawValue //the most common rate among the step sequencers is sixteenth, but for the example purposes I set it slower
     private var currentVolume: Float = 0.5
-    @Published var notesSequenceDictionary: [String : [Float]]
     
     init() {
         self.notesSequenceDictionary = userDefaults.object(forKey: UtilStrings.keyStoredSequence) as? [String:[Float]] ?? [:]
@@ -40,6 +41,7 @@ class SequencerViewModel: ObservableObject {
     
     func stopPlaying() {
         self.noteFrequenciesToPlay = []
+        isPlaying = false
     }
     
     func storeSequence() {
@@ -128,6 +130,7 @@ class SequencerViewModel: ObservableObject {
             SoundEngine.shared.volume = 0.0
             timer?.invalidate()
             counter = 0
+            isPlaying = false
             
         }
     }
