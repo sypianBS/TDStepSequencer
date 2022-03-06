@@ -1,6 +1,6 @@
 //
 //  Oscillator.swift
-//  AudioBasics
+//  TDStepSequencer
 //
 //  Created by Beniamin on 12.02.22.
 //  based on the https://developer.apple.com/documentation/avfaudio/audio_engine/building_a_signal_generator

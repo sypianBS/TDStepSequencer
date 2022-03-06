@@ -1,6 +1,6 @@
 //
 //  SequencerViewModel.swift
-//  AudioBasics
+//  TDStepSequencer
 //
 //  Created by Beniamin on 14.02.22.
 //

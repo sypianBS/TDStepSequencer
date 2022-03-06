@@ -1,6 +1,6 @@
 //
 //  SoundEmitter.swift
-//  AudioBasics
+//  TDStepSequencer
 //
 //  Created by Beniamin on 12.02.22.
 //  based on https://github.com/GrantJEmerson/SwiftSynth

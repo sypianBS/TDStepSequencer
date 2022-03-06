@@ -1,6 +1,6 @@
 //
 //  ContentView.swift
-//  AudioBasics
+//  TDStepSequencer
 //
 //  Created by Beniamin on 12.02.22.
 //

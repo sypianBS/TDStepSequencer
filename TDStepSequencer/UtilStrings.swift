@@ -1,6 +1,6 @@
 //
 //  Strings.swift
-//  AudioBasics
+//  TDStepSequencer
 //
 //  Created by Beniamin on 05.03.22.
 //

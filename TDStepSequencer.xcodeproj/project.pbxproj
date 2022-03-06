@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		C3037EA627B7D366008BD68B /* AudioBasicsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3037EA527B7D366008BD68B /* AudioBasicsApp.swift */; };
+		C3037EA627B7D366008BD68B /* TDStepSequencerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3037EA527B7D366008BD68B /* TDStepSequencerApp.swift */; };
 		C3037EA827B7D366008BD68B /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3037EA727B7D366008BD68B /* ContentView.swift */; };
 		C3037EAA27B7D36D008BD68B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C3037EA927B7D36D008BD68B /* Assets.xcassets */; };
 		C3037EAD27B7D36D008BD68B /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C3037EAC27B7D36D008BD68B /* Preview Assets.xcassets */; };
@@ -20,8 +20,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		C3037EA227B7D366008BD68B /* AudioBasics.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AudioBasics.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		C3037EA527B7D366008BD68B /* AudioBasicsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioBasicsApp.swift; sourceTree = "<group>"; };
+		C3037EA227B7D366008BD68B /* TDStepSequencer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TDStepSequencer.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		C3037EA527B7D366008BD68B /* TDStepSequencerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TDStepSequencerApp.swift; sourceTree = "<group>"; };
 		C3037EA727B7D366008BD68B /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		C3037EA927B7D36D008BD68B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C3037EAC27B7D36D008BD68B /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -47,7 +47,7 @@
 		C3037E9927B7D365008BD68B = {
 			isa = PBXGroup;
 			children = (
-				C3037EA427B7D366008BD68B /* AudioBasics */,
+				C3037EA427B7D366008BD68B /* TDStepSequencer */,
 				C3037EA327B7D366008BD68B /* Products */,
 			);
 			sourceTree = "<group>";
@@ -55,15 +55,15 @@
 		C3037EA327B7D366008BD68B /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				C3037EA227B7D366008BD68B /* AudioBasics.app */,
+				C3037EA227B7D366008BD68B /* TDStepSequencer.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		C3037EA427B7D366008BD68B /* AudioBasics */ = {
+		C3037EA427B7D366008BD68B /* TDStepSequencer */ = {
 			isa = PBXGroup;
 			children = (
-				C3037EA527B7D366008BD68B /* AudioBasicsApp.swift */,
+				C3037EA527B7D366008BD68B /* TDStepSequencerApp.swift */,
 				C3037EA727B7D366008BD68B /* ContentView.swift */,
 				C3037EA927B7D36D008BD68B /* Assets.xcassets */,
 				C3037EAB27B7D36D008BD68B /* Preview Content */,
@@ -74,7 +74,7 @@
 				C35BC0C027D341410014D317 /* UtilStrings.swift */,
 				C35BC0C227D398D20014D317 /* StoredSequencesView.swift */,
 			);
-			path = AudioBasics;
+			path = TDStepSequencer;
 			sourceTree = "<group>";
 		};
 		C3037EAB27B7D36D008BD68B /* Preview Content */ = {
@@ -88,9 +88,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		C3037EA127B7D366008BD68B /* AudioBasics */ = {
+		C3037EA127B7D366008BD68B /* TDStepSequencer */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = C3037EB027B7D36D008BD68B /* Build configuration list for PBXNativeTarget "AudioBasics" */;
+			buildConfigurationList = C3037EB027B7D36D008BD68B /* Build configuration list for PBXNativeTarget "TDStepSequencer" */;
 			buildPhases = (
 				C3037E9E27B7D366008BD68B /* Sources */,
 				C3037E9F27B7D366008BD68B /* Frameworks */,
@@ -100,9 +100,9 @@
 			);
 			dependencies = (
 			);
-			name = AudioBasics;
+			name = TDStepSequencer;
 			productName = AudioBasics;
-			productReference = C3037EA227B7D366008BD68B /* AudioBasics.app */;
+			productReference = C3037EA227B7D366008BD68B /* TDStepSequencer.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -120,7 +120,7 @@
 					};
 				};
 			};
-			buildConfigurationList = C3037E9D27B7D365008BD68B /* Build configuration list for PBXProject "AudioBasics" */;
+			buildConfigurationList = C3037E9D27B7D365008BD68B /* Build configuration list for PBXProject "TDStepSequencer" */;
 			compatibilityVersion = "Xcode 13.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -133,7 +133,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				C3037EA127B7D366008BD68B /* AudioBasics */,
+				C3037EA127B7D366008BD68B /* TDStepSequencer */,
 			);
 		};
 /* End PBXProject section */
@@ -161,7 +161,7 @@
 				C3037EA827B7D366008BD68B /* ContentView.swift in Sources */,
 				C35BC0C327D398D20014D317 /* StoredSequencesView.swift in Sources */,
 				C3147AFC27BABB1100573C83 /* SequencerViewModel.swift in Sources */,
-				C3037EA627B7D366008BD68B /* AudioBasicsApp.swift in Sources */,
+				C3037EA627B7D366008BD68B /* TDStepSequencerApp.swift in Sources */,
 				C35BC0C127D341410014D317 /* UtilStrings.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -292,7 +292,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"AudioBasics/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"TDStepSequencer/Preview Content\"";
 				DEVELOPMENT_TEAM = TFF9P2QP4C;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -306,8 +306,8 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.example.AudioBasics;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.TDStepSequencer;
+				PRODUCT_NAME = TDStepSequencer;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -321,7 +321,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"AudioBasics/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"TDStepSequencer/Preview Content\"";
 				DEVELOPMENT_TEAM = TFF9P2QP4C;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -335,8 +335,8 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.example.AudioBasics;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.TDStepSequencer;
+				PRODUCT_NAME = TDStepSequencer;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -346,7 +346,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		C3037E9D27B7D365008BD68B /* Build configuration list for PBXProject "AudioBasics" */ = {
+		C3037E9D27B7D365008BD68B /* Build configuration list for PBXProject "TDStepSequencer" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C3037EAE27B7D36D008BD68B /* Debug */,
@@ -355,7 +355,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		C3037EB027B7D36D008BD68B /* Build configuration list for PBXNativeTarget "AudioBasics" */ = {
+		C3037EB027B7D36D008BD68B /* Build configuration list for PBXNativeTarget "TDStepSequencer" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C3037EB127B7D36D008BD68B /* Debug */,

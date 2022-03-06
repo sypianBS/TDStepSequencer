@@ -1,6 +1,6 @@
 //
 //  Octave.swift
-//  AudioBasics
+//  TDStepSequencer
 //
 //  Created by Beniamin on 13.02.22.
 //  idea https://codepen.io/enxaneta/post/frequencies-of-musical-notes
