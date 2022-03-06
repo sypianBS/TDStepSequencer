@@ -63,16 +63,13 @@
 		C3037EA427B7D366008BD68B /* TDStepSequencer */ = {
 			isa = PBXGroup;
 			children = (
-				C3037EA527B7D366008BD68B /* TDStepSequencerApp.swift */,
-				C3037EA727B7D366008BD68B /* ContentView.swift */,
-				C3037EA927B7D36D008BD68B /* Assets.xcassets */,
+				C35BC0C527D4C6510014D317 /* ViewModel */,
+				C35BC0C427D4C64B0014D317 /* Views */,
+				C35BC0C627D4C6750014D317 /* SoundGeneration */,
 				C3037EAB27B7D36D008BD68B /* Preview Content */,
-				C3037EB327B7D4A5008BD68B /* Oscillator.swift */,
-				C3037EB527B7D69E008BD68B /* SoundEngine.swift */,
-				C31944F327B9641000E6BBBF /* Octave.swift */,
-				C3147AFB27BABB1100573C83 /* SequencerViewModel.swift */,
 				C35BC0C027D341410014D317 /* UtilStrings.swift */,
-				C35BC0C227D398D20014D317 /* StoredSequencesView.swift */,
+				C3037EA527B7D366008BD68B /* TDStepSequencerApp.swift */,
+				C3037EA927B7D36D008BD68B /* Assets.xcassets */,
 			);
 			path = TDStepSequencer;
 			sourceTree = "<group>";
@@ -83,6 +80,33 @@
 				C3037EAC27B7D36D008BD68B /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		C35BC0C427D4C64B0014D317 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				C3037EA727B7D366008BD68B /* ContentView.swift */,
+				C35BC0C227D398D20014D317 /* StoredSequencesView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		C35BC0C527D4C6510014D317 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				C3147AFB27BABB1100573C83 /* SequencerViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		C35BC0C627D4C6750014D317 /* SoundGeneration */ = {
+			isa = PBXGroup;
+			children = (
+				C3037EB327B7D4A5008BD68B /* Oscillator.swift */,
+				C3037EB527B7D69E008BD68B /* SoundEngine.swift */,
+				C31944F327B9641000E6BBBF /* Octave.swift */,
+			);
+			path = SoundGeneration;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
