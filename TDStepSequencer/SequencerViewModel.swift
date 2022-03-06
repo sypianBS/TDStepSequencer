@@ -38,6 +38,10 @@ class SequencerViewModel: ObservableObject {
         self.startTimer()
     }
     
+    func stopPlaying() {
+        self.noteFrequenciesToPlay = []
+    }
+    
     func storeSequence() {
         let keyToStore = prepareKeyName()
         

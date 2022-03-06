@@ -47,14 +47,20 @@ struct ContentView: View {
                     Text("Play, load, save".uppercased())
                         .font(.headline)
                         .padding(.bottom, 8)
-                    HStack {
+                    HStack(spacing: 16) {
                         Spacer()
                         Button(action: {
-                            sequencerViewModel.generateARandomTenNotesSequence()
-                            selectedEntry = []
-                            isPlaying = true
+                            if !isPlaying {
+                                sequencerViewModel.generateARandomTenNotesSequence()
+                                selectedEntry = []
+                                isPlaying = true
+                            } else {
+                                sequencerViewModel.stopPlaying()
+                                isPlaying = false
+                            }
                         }, label: {
                             Image(systemName: isPlaying ? "playpause.fill" : "playpause")
+                                .font(.system(size: 32))
                         })
                         
                         /*Button(action: {
@@ -63,20 +69,25 @@ struct ContentView: View {
                             Image(systemName: "play").foregroundColor(selectedEntry.count > 0 ? .blue : .gray)
                         })*/
                         
-                        Button(action: { sequencerViewModel.storeSequence() }, label: {
-                            Image(systemName: "square.and.arrow.down")
-                        })
                         
                         if sequencerViewModel.notesSequenceDictionary.count > 0 {
                             Button(action: {
                                 showSequencesList = true
                             }, label: {
                                 Image(systemName: "list.dash")
+                                    .font(.system(size: 32))
                             })
                         } else {
                             Image(systemName: "list.dash")
+                                .font(.system(size: 32))
                                 .foregroundColor(.gray)
                         }
+                        
+                        Button(action: { sequencerViewModel.storeSequence() }, label: {
+                            Image(systemName: "square.and.arrow.down")
+                                .font(.system(size: 32))
+                                .offset(y: -3)
+                        })
                         Spacer()
                     }
                     NavigationLink("", isActive: $showSequencesList) {
