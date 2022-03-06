@@ -107,6 +107,10 @@ struct ContentView: View {
             }).onChange(of: bpm, perform: {
                 newBPM in
                 sequencerViewModel.setBpm(bpm: newBPM)
+            }).onChange(of: selectedEntry, perform: {
+                loadedENtry in
+                sequencerViewModel.playLoadedSequence(sequence: selectedEntry)
+                isPlaying = true
             })
         }
     }
