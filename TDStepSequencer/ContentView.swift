@@ -52,24 +52,19 @@ struct ContentView: View {
                         Spacer()
                         Button(action: {
                             if !isPlaying {
-                                sequencerViewModel.generateARandomTenNotesSequence()
                                 selectedEntry = []
+                                sequencerViewModel.generateARandomTenNotesSequence()
+                                //selectedEntry = []
                                 isPlaying = true
                             } else {
                                 sequencerViewModel.stopPlaying()
+                                selectedEntry = []
                                 isPlaying = false
                             }
                         }, label: {
                             Image(systemName: isPlaying ? "playpause.fill" : "playpause")
                                 .font(.system(size: assetsSize))
                         })
-                        
-                        /*Button(action: {
-                            sequencerViewModel.playLoadedSequence(sequence: selectedEntry)
-                        }, label: {
-                            Image(systemName: "play").foregroundColor(selectedEntry.count > 0 ? .blue : .gray)
-                        })*/
-                        
                         
                         if sequencerViewModel.notesSequenceDictionary.count > 0 {
                             Button(action: {
@@ -109,9 +104,11 @@ struct ContentView: View {
                 newBPM in
                 sequencerViewModel.setBpm(bpm: newBPM)
             }).onChange(of: selectedEntry, perform: {
-                loadedENtry in
-                sequencerViewModel.playLoadedSequence(sequence: selectedEntry)
-                isPlaying = true
+                loadedENtry in                
+                if selectedEntry.count > 0 {
+                    sequencerViewModel.playLoadedSequence(sequence: selectedEntry)
+                    isPlaying = true
+                }
             })
         }
     }
