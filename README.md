@@ -1,6 +1,6 @@
 # TDStepSequencer
 
-This is a very early version of a step sequencer which currently plays only random notes sequences. The ultimate goal is to make it fully functional by providing a proper UI with an ability to play user-chosen notes sequences.
+This is an early version of a step sequencer which currently plays random notes sequences. The ultimate goal is to make it fully functional by providing a proper UI with an ability to play user-chosen notes sequences.
 Author: sypianBS bensypianski@googlemail.com
 
 Current features:
@@ -11,7 +11,7 @@ Current features:
 
 ToDos (must have):
 - UI for creating the desired sequences
-- fix audio distortion
+- fix sine wave audio distortion / clicks
 
 ToDos (nice to have):
 - arp gate (slightly changes length of the notes) 
