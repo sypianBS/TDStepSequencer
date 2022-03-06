@@ -74,7 +74,7 @@ class SoundEngine {
         return noErr
     }
     
-    init(signal: @escaping Signal = Oscillator.sine) {
+    init(signal: @escaping Signal = Oscillator.saw) {
         audioEngine = AVAudioEngine()
         let mainMixer = audioEngine.mainMixerNode
         let outputNode = audioEngine.outputNode

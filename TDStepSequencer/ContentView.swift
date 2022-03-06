@@ -15,11 +15,12 @@ struct ContentView: View {
     @State var showSequencesList = false
     let thirdOctave = Octave(octaveNumber: 3)
     @State var selectedRate: SequencerRate = .eight
-    @State var selectedWaveform: Oscillator.Waveform = .sine
+    @State var selectedWaveform: Oscillator.Waveform = .saw
     @State var selectedEntry: [Float] = []
     @State var isPlaying = false
     typealias Pitch = SoundEngine.Pitch
     typealias SequencerRate = SequencerViewModel.SequencerRate
+    let assetsSize: CGFloat = 24
     
     var body: some View {
         NavigationView {
@@ -60,7 +61,7 @@ struct ContentView: View {
                             }
                         }, label: {
                             Image(systemName: isPlaying ? "playpause.fill" : "playpause")
-                                .font(.system(size: 32))
+                                .font(.system(size: assetsSize))
                         })
                         
                         /*Button(action: {
@@ -75,17 +76,17 @@ struct ContentView: View {
                                 showSequencesList = true
                             }, label: {
                                 Image(systemName: "list.dash")
-                                    .font(.system(size: 32))
+                                    .font(.system(size: assetsSize))
                             })
                         } else {
                             Image(systemName: "list.dash")
-                                .font(.system(size: 32))
+                                .font(.system(size: assetsSize))
                                 .foregroundColor(.gray)
                         }
                         
                         Button(action: { sequencerViewModel.storeSequence() }, label: {
                             Image(systemName: "square.and.arrow.down")
-                                .font(.system(size: 32))
+                                .font(.system(size: assetsSize))
                                 .offset(y: -3)
                         })
                         Spacer()
