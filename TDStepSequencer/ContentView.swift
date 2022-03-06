@@ -17,56 +17,72 @@ struct ContentView: View {
     @State var selectedRate: SequencerRate = .eight
     @State var selectedWaveform: Oscillator.Waveform = .sine
     @State var selectedEntry: [Float] = []
+    @State var isPlaying = false
     typealias Pitch = SoundEngine.Pitch
     typealias SequencerRate = SequencerViewModel.SequencerRate
     
     var body: some View {
         NavigationView {
-            VStack {
-                Stepper(UtilStrings.bpm +  ": \(bpm)", value: $bpm, in: 20...200)
-                Picker(selection: $selectedWaveform, label: Text("Rate")) {
-                    ForEach(Oscillator.Waveform.allCases, id: \.self) {
-                        Text($0.rawValue)
-                    }
-                }.pickerStyle(SegmentedPickerStyle())
-                
-                Button(action: {
-                    sequencerViewModel.generateARandomTenNotesSequence()
-                    selectedEntry = []
-                }, label: {
-                    Text(UtilStrings.playARandomSequenceOfNotes)
-                })
-                
-                Button(action: {
-                    sequencerViewModel.playLoadedSequence(sequence: selectedEntry)
-                }, label: {
-                    Text("Play loaded sequence").foregroundColor(selectedEntry.count > 0 ? .blue : .gray)
-                })
-                
-                Picker(selection: $selectedRate, label: Text("Rate")) {
-                    ForEach(SequencerRate.allCases, id: \.self) {
-                        Text($0.description)
-                    }
-                }.pickerStyle(SegmentedPickerStyle())
-                Button(action: { sequencerViewModel.storeSequence() }, label: {
-                    Text("Save the sequence")
-                })
-                Button(action: { sequencerViewModel.printStoredSequence()}, label: {
-                    Text("Print the stored sequence")
-                })
-                
-                NavigationLink("", isActive: $showSequencesList) {
-                    StoredSequencesView(showView: $showSequencesList, selectedEntry: $selectedEntry,  notesSequenceDictionary: $sequencerViewModel.notesSequenceDictionary)
+            VStack(alignment: .leading, spacing: 24) {
+                VStack(alignment: .leading) {
+                    Text("Playback settings".uppercased())
+                        .font(.headline)
+                    VStack {
+                        Stepper(UtilStrings.bpm +  ": \(bpm)", value: $bpm, in: 20...200)
+                        Picker(selection: $selectedWaveform, label: Text("Rate")) {
+                            ForEach(Oscillator.Waveform.allCases, id: \.self) {
+                                Text($0.rawValue)
+                            }
+                        }.pickerStyle(SegmentedPickerStyle())
+                        
+                        Picker(selection: $selectedRate, label: Text("Rate")) {
+                            ForEach(SequencerRate.allCases, id: \.self) {
+                                Text($0.description)
+                            }
+                        }.pickerStyle(SegmentedPickerStyle())
+                    }.padding(.horizontal, 8)
                 }
-                if sequencerViewModel.notesSequenceDictionary.count > 0 {
-                    Button(action: {
-                        showSequencesList = true
-                    }, label: {
-                        Text("show list")
-                    })
-                } else {
-                    Text("show list")
-                        .foregroundColor(.gray)
+                
+                VStack(alignment: .leading) {
+                    Text("Play, load, save".uppercased())
+                        .font(.headline)
+                        .padding(.bottom, 8)
+                    HStack {
+                        Spacer()
+                        Button(action: {
+                            sequencerViewModel.generateARandomTenNotesSequence()
+                            selectedEntry = []
+                            isPlaying = true
+                        }, label: {
+                            Image(systemName: isPlaying ? "playpause.fill" : "playpause")
+                        })
+                        
+                        /*Button(action: {
+                            sequencerViewModel.playLoadedSequence(sequence: selectedEntry)
+                        }, label: {
+                            Image(systemName: "play").foregroundColor(selectedEntry.count > 0 ? .blue : .gray)
+                        })*/
+                        
+                        Button(action: { sequencerViewModel.storeSequence() }, label: {
+                            Image(systemName: "square.and.arrow.down")
+                        })
+                        
+                        if sequencerViewModel.notesSequenceDictionary.count > 0 {
+                            Button(action: {
+                                showSequencesList = true
+                            }, label: {
+                                Image(systemName: "list.dash")
+                            })
+                        } else {
+                            Image(systemName: "list.dash")
+                                .foregroundColor(.gray)
+                        }
+                        Spacer()
+                    }
+                    NavigationLink("", isActive: $showSequencesList) {
+                        StoredSequencesView(showView: $showSequencesList, selectedEntry: $selectedEntry,  notesSequenceDictionary: $sequencerViewModel.notesSequenceDictionary)
+                    }
+                   
                 }
             }
             .padding(.horizontal, 16)
