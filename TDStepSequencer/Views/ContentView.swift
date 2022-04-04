@@ -42,6 +42,7 @@ struct ContentView: View {
                 if selectedEntry.count > 0 {
                     sequencerViewModel.playLoadedSequence(sequence: selectedEntry)
                     sequencerViewModel.isPlaying = true
+                    selectedEntry = []
                 }
             })
         }
