@@ -10,18 +10,13 @@ import Foundation
 class SequencerViewModel: ObservableObject {
     @Published var noteFrequenciesToPlay: [Float] = []
     @Published var isPlaying = false
-    @Published var notesSequenceDictionary: [String : [Float]]
     let userDefaults = UserDefaults.standard
     var timer: Timer?
     var counter = 0
     var bpm: Int = 120 //house music tempo
     var rate: Double = SequencerRate.eight.rawValue //the most common rate among the step sequencers is sixteenth, but for the example purposes I set it slower
     private var currentVolume: Float = 0.5
-    
-    init() {
-        self.notesSequenceDictionary = userDefaults.object(forKey: UtilStrings.keyStoredSequence) as? [String:[Float]] ?? [:]
-    }
-    
+        
     //example: 120 bpm means 120 quarter notes / minute -> 2 quarter notes / second -> 1 quarter note / 0.5 second. So for a rate of 1/4 and bpm of 120, we need to multiplly by 4 to get 0.5s at the end
     var sequencerTimeInterval: Double {
         return rate * 4 * (60 / Double(bpm))
@@ -42,26 +37,6 @@ class SequencerViewModel: ObservableObject {
     func stopPlaying() {
         self.noteFrequenciesToPlay = []
         isPlaying = false
-    }
-    
-    func storeSequence() {
-        let keyToStore = prepareKeyName()
-        
-        if var udNotesSequenceDictionary = userDefaults.object(forKey: UtilStrings.keyStoredSequence) as? [String:[Float]] {
-            udNotesSequenceDictionary[keyToStore] = noteFrequenciesToPlay
-            notesSequenceDictionary = udNotesSequenceDictionary
-            userDefaults.set(udNotesSequenceDictionary, forKey: UtilStrings.keyStoredSequence)
-        } else {
-            notesSequenceDictionary[keyToStore] = noteFrequenciesToPlay
-            userDefaults.set(notesSequenceDictionary, forKey: UtilStrings.keyStoredSequence)
-        }
-    }
-    
-    private func prepareKeyName() -> String {
-        let today = Date()
-        let formatter = DateFormatter.dateAndTime
-        let keyToStore = "Sequence: " + formatter.string(from: today)
-        return keyToStore
     }
     
     //just for development purposes

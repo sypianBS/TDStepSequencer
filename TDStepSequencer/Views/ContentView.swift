@@ -11,6 +11,7 @@ struct ContentView: View {
     typealias Pitch = SoundEngine.Pitch
     typealias SequencerRate = SequencerViewModel.SequencerRate
     @StateObject var sequencerViewModel = SequencerViewModel()
+    @StateObject var userSequencesViewModel = UserSequencesViewModel()
     @State var selectedPitch: Float? = nil
     @State private var bpm = 120
     @State var showSequencesList = false
@@ -89,7 +90,7 @@ struct ContentView: View {
                         .font(.system(size: assetsSize))
                 })
                 
-                if sequencerViewModel.notesSequenceDictionary.count > 0 {
+                if userSequencesViewModel.storedSequences.count > 0 {
                     Button(action: {
                         showSequencesList = true
                     }, label: {
@@ -102,7 +103,9 @@ struct ContentView: View {
                         .foregroundColor(.gray)
                 }
                 
-                Button(action: { sequencerViewModel.storeSequence() }, label: {
+                Button(action: {
+                    userSequencesViewModel.addNewSequence(notesToStore: sequencerViewModel.noteFrequenciesToPlay)
+                }, label: {
                     Image(systemName: "square.and.arrow.down")
                         .font(.system(size: assetsSize))
                         .offset(y: -3)
@@ -110,7 +113,7 @@ struct ContentView: View {
                 Spacer()
             }
             NavigationLink("", isActive: $showSequencesList) {
-                StoredSequencesView(showView: $showSequencesList, selectedEntry: $selectedEntry,  notesSequenceDictionary: $sequencerViewModel.notesSequenceDictionary)
+                StoredSequencesView(showView: $showSequencesList, selectedEntry: $selectedEntry).environmentObject(userSequencesViewModel)
             }
            
         })
