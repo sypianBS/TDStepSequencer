@@ -46,7 +46,7 @@ struct RotationKnobView: View {
     @State private var angle: Double = 0
     @State private var currentQuadrant: Quadrant = .one
     @State private var upcomingQuadrant: Quadrant = .one
-    @State private var currentChoice = ""
+    @Binding var currentChoice: Int
     
     //MARK: - View
     var body: some View {
@@ -63,14 +63,14 @@ struct RotationKnobView: View {
     }
     
     var valueIndicator: some View {
-        Text(currentChoice)
+        Text(currentChoice.description)
             .bold()
     }
     
     private func getAngleToSet(dragAngle: Int) -> Double {
         for (idx, chunk) in self.chunks.enumerated() {
             if chunk.contains(dragAngle) {
-                self.currentChoice = idx.description
+                self.currentChoice = idx
                 return Double(self.chunks[idx].first!)
             }
         }

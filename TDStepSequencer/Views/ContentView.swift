@@ -15,8 +15,8 @@ struct ContentView: View {
     @State var selectedPitch: Float? = nil
     @State private var bpm = 120
     @State var showSequencesList = false
-    @State var selectedRate: SequencerRate = .eight
-    @State var selectedWaveform: Oscillator.Waveform = .saw
+    @State var selectedRate = 8 // SequencerRate = .eight
+    @State var selectedWaveform = 0 // Oscillator.Waveform = .saw
     @State var selectedEntry: [Float] = []
     let assetsSize: CGFloat = 24
     
@@ -28,11 +28,37 @@ struct ContentView: View {
             }
             .padding(.horizontal, 16)
             .onChange(of: selectedWaveform, perform: {
-                newWaveform in
+                val in
+                var newWaveform: Oscillator.Waveform
+                switch val {
+                case 0:
+                    newWaveform = .saw
+                case 1:
+                    newWaveform = .square
+                case 2:
+                    newWaveform = .sine
+                default:
+                    newWaveform = .saw //should never happen
+                }
                 sequencerViewModel.setWaveformTo(waveform: newWaveform)
             })
             .onChange(of: selectedRate, perform: {
-                newRate in
+                val in
+                var newRate: SequencerRate = .eight
+                switch val {
+                case 0:
+                    newRate = .whole
+                case 1:
+                    newRate = .half
+                case 2:
+                    newRate = .quarter
+                case 3:
+                    newRate = .eight
+                case 4:
+                    newRate = .sixteenth
+                default:
+                    newRate = .sixteenth
+                }
                 sequencerViewModel.setRate(rate: newRate)
             }).onChange(of: bpm, perform: {
                 newBPM in
@@ -54,11 +80,11 @@ struct ContentView: View {
                 Text("Playback settings".uppercased())
                     .font(.headline)
                 HStack(spacing: 64) {
-                    RotationKnobView(numberOfChoices: 3/*, selectedWaveform: $bpm*/)
+                    RotationKnobView(numberOfChoices: 180, currentChoice: $bpm)
                         .frame(width: 50, height: 50)
-                    RotationKnobView(numberOfChoices: 3/*, selectedWaveform: $selectedWaveform*/)
+                    RotationKnobView(numberOfChoices: 5, currentChoice: $selectedRate)
                         .frame(width: 50, height: 50)
-                    RotationKnobView(numberOfChoices: 5/*, selectedRate: $selectedRate*/)
+                    RotationKnobView(numberOfChoices: 3, currentChoice: $selectedWaveform)
                         .frame(width: 50, height: 50)
                 }
             }.padding(.horizontal, 8)
