@@ -17,6 +17,9 @@
 		C31944F427B9641000E6BBBF /* Octave.swift in Sources */ = {isa = PBXBuildFile; fileRef = C31944F327B9641000E6BBBF /* Octave.swift */; };
 		C35BC0C127D341410014D317 /* UtilStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = C35BC0C027D341410014D317 /* UtilStrings.swift */; };
 		C35BC0C327D398D20014D317 /* StoredSequencesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C35BC0C227D398D20014D317 /* StoredSequencesView.swift */; };
+		C388B5F8292E95A2001593C0 /* RotationKnobView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C388B5F7292E95A2001593C0 /* RotationKnobView.swift */; };
+		C388B5FB292E9768001593C0 /* UIColor+rgb.swift in Sources */ = {isa = PBXBuildFile; fileRef = C388B5FA292E9768001593C0 /* UIColor+rgb.swift */; };
+		C388B5FD292E97AF001593C0 /* Array+chunk.swift in Sources */ = {isa = PBXBuildFile; fileRef = C388B5FC292E97AE001593C0 /* Array+chunk.swift */; };
 		C3E406B227F9F19100F2E66F /* UserSequencesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E406B127F9F19100F2E66F /* UserSequencesViewModel.swift */; };
 		C3E406B527F9F2DD00F2E66F /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = C3E406B427F9F2DD00F2E66F /* Realm */; };
 		C3E406B727F9F2DD00F2E66F /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = C3E406B627F9F2DD00F2E66F /* RealmSwift */; };
@@ -35,6 +38,9 @@
 		C31944F327B9641000E6BBBF /* Octave.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Octave.swift; sourceTree = "<group>"; };
 		C35BC0C027D341410014D317 /* UtilStrings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UtilStrings.swift; sourceTree = "<group>"; };
 		C35BC0C227D398D20014D317 /* StoredSequencesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoredSequencesView.swift; sourceTree = "<group>"; };
+		C388B5F7292E95A2001593C0 /* RotationKnobView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RotationKnobView.swift; sourceTree = "<group>"; };
+		C388B5FA292E9768001593C0 /* UIColor+rgb.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+rgb.swift"; sourceTree = "<group>"; };
+		C388B5FC292E97AE001593C0 /* Array+chunk.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+chunk.swift"; sourceTree = "<group>"; };
 		C3E406B127F9F19100F2E66F /* UserSequencesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSequencesViewModel.swift; sourceTree = "<group>"; };
 		C3E406B827F9F35A00F2E66F /* StoredSequence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoredSequence.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -79,6 +85,7 @@
 				C3037EA527B7D366008BD68B /* TDStepSequencerApp.swift */,
 				C3037EA927B7D36D008BD68B /* Assets.xcassets */,
 				C3E406B827F9F35A00F2E66F /* StoredSequence.swift */,
+				C388B5F9292E9721001593C0 /* Utils */,
 			);
 			path = TDStepSequencer;
 			sourceTree = "<group>";
@@ -96,6 +103,7 @@
 			children = (
 				C3037EA727B7D366008BD68B /* ContentView.swift */,
 				C35BC0C227D398D20014D317 /* StoredSequencesView.swift */,
+				C388B5F7292E95A2001593C0 /* RotationKnobView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -117,6 +125,15 @@
 				C31944F327B9641000E6BBBF /* Octave.swift */,
 			);
 			path = SoundGeneration;
+			sourceTree = "<group>";
+		};
+		C388B5F9292E9721001593C0 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				C388B5FA292E9768001593C0 /* UIColor+rgb.swift */,
+				C388B5FC292E97AE001593C0 /* Array+chunk.swift */,
+			);
+			path = Utils;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -199,11 +216,14 @@
 				C31944F427B9641000E6BBBF /* Octave.swift in Sources */,
 				C3037EB627B7D69E008BD68B /* SoundEngine.swift in Sources */,
 				C3E406B227F9F19100F2E66F /* UserSequencesViewModel.swift in Sources */,
+				C388B5FB292E9768001593C0 /* UIColor+rgb.swift in Sources */,
 				C3E406B927F9F35A00F2E66F /* StoredSequence.swift in Sources */,
 				C3037EB427B7D4A5008BD68B /* Oscillator.swift in Sources */,
+				C388B5FD292E97AF001593C0 /* Array+chunk.swift in Sources */,
 				C3037EA827B7D366008BD68B /* ContentView.swift in Sources */,
 				C35BC0C327D398D20014D317 /* StoredSequencesView.swift in Sources */,
 				C3147AFC27BABB1100573C83 /* SequencerViewModel.swift in Sources */,
+				C388B5F8292E95A2001593C0 /* RotationKnobView.swift in Sources */,
 				C3037EA627B7D366008BD68B /* TDStepSequencerApp.swift in Sources */,
 				C35BC0C127D341410014D317 /* UtilStrings.swift in Sources */,
 			);
