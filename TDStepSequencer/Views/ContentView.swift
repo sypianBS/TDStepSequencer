@@ -50,21 +50,17 @@ struct ContentView: View {
     
     var playbackSettingsView: AnyView {
         return AnyView(VStack(alignment: .leading) {
-            Text("Playback settings".uppercased())
-                .font(.headline)
-            VStack {
-                Stepper(UtilStrings.bpm +  ": \(bpm)", value: $bpm, in: 20...200)
-                Picker(selection: $selectedWaveform, label: Text("Rate")) {
-                    ForEach(Oscillator.Waveform.allCases, id: \.self) {
-                        Text($0.rawValue)
-                    }
-                }.pickerStyle(SegmentedPickerStyle())
-                
-                Picker(selection: $selectedRate, label: Text("Rate")) {
-                    ForEach(SequencerRate.allCases, id: \.self) {
-                        Text($0.description)
-                    }
-                }.pickerStyle(SegmentedPickerStyle())
+            VStack(spacing: 64) {
+                Text("Playback settings".uppercased())
+                    .font(.headline)
+                HStack(spacing: 64) {
+                    RotationKnobView(numberOfChoices: 3/*, selectedWaveform: $bpm*/)
+                        .frame(width: 50, height: 50)
+                    RotationKnobView(numberOfChoices: 3/*, selectedWaveform: $selectedWaveform*/)
+                        .frame(width: 50, height: 50)
+                    RotationKnobView(numberOfChoices: 5/*, selectedRate: $selectedRate*/)
+                        .frame(width: 50, height: 50)
+                }
             }.padding(.horizontal, 8)
         })
     }
