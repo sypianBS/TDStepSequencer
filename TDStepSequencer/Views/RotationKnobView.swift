@@ -10,6 +10,13 @@ import GLKit
 
 struct RotationKnobView: View {
     
+    //MARK: - Internal State
+    @State private var progress: Double = 0
+    @State private var angle: Double = 0
+    @State private var currentQuadrant: Quadrant = .one
+    @State private var upcomingQuadrant: Quadrant = .one
+    @Binding var currentChoice: Int
+    
     //MARK: - Configurable properties
     var lineThickness:LineThickness = .max
     var indicatorDiameter = 40.0 //adapt size of the knob
@@ -40,31 +47,32 @@ struct RotationKnobView: View {
     
     var canRotateLessThan0 = true
     var canRotateMoreThan360 = true
-
-    //MARK: - Internal State
-    @State private var progress: Double = 0
-    @State private var angle: Double = 0
-    @State private var currentQuadrant: Quadrant = .one
-    @State private var upcomingQuadrant: Quadrant = .one
-    @Binding var currentChoice: Int
+    var knobDescription: String
     
     //MARK: - View
     var body: some View {
         VStack {
-            Spacer()
             ZStack {
                 dialOutline
                 angleIndicator
                 innerBackground
+                valueIndicator
             }.padding(.bottom, 16)
-            valueIndicator
-            Spacer()
+            knobDescriptionView
         }
     }
     
     var valueIndicator: some View {
         Text(currentChoice.description)
+            .foregroundColor(.white)
             .bold()
+    }
+    
+    var knobDescriptionView: some View {
+        Text(knobDescription)
+            .foregroundColor(.white)
+            .bold()
+            .fixedSize()
     }
     
     private func getAngleToSet(dragAngle: Int) -> Double {

@@ -22,11 +22,12 @@ struct ContentView: View {
     
     var body: some View {
         NavigationView {
-            VStack(alignment: .leading, spacing: 24) {
+            ZStack {
+                Color.black
+                    .ignoresSafeArea()
                 playbackSettingsView
-                playLoadSaveView
+                    .padding(.horizontal, 16)
             }
-            .padding(.horizontal, 16)
             .onChange(of: selectedWaveform, perform: {
                 val in
                 var newWaveform: Oscillator.Waveform
@@ -76,69 +77,24 @@ struct ContentView: View {
     
     var playbackSettingsView: AnyView {
         return AnyView(VStack(alignment: .leading) {
-            VStack(spacing: 64) {
+            VStack(spacing: 48) {
                 Text("Playback settings".uppercased())
+                    .foregroundColor(.white)
                     .font(.headline)
-                HStack(spacing: 64) {
-                    RotationKnobView(numberOfChoices: 180, currentChoice: $bpm)
-                        .frame(width: 50, height: 50)
-                    RotationKnobView(numberOfChoices: 5, currentChoice: $selectedRate)
-                        .frame(width: 50, height: 50)
-                    RotationKnobView(numberOfChoices: 3, currentChoice: $selectedWaveform)
-                        .frame(width: 50, height: 50)
+                HStack(spacing: 80) {
+                    RotationKnobView(currentChoice: $bpm, numberOfChoices: 180, knobDescription: "BPM")
+                    RotationKnobView(currentChoice: $selectedRate, numberOfChoices: 5, knobDescription: "Wave")
+                    RotationKnobView(currentChoice: $selectedWaveform, numberOfChoices: 3, knobDescription: "Rate")
+                }
+                HStack {
+                    PlayButtonView(selectedEntry: $selectedEntry).environmentObject(sequencerViewModel)
+                    LoadSequenceView(showSequencesList: $showSequencesList).environmentObject(userSequencesViewModel)
+                    SaveSequenceView().environmentObject(sequencerViewModel).environmentObject(userSequencesViewModel)
+                }
+                NavigationLink("", isActive: $showSequencesList) {
+                    StoredSequencesView(showView: $showSequencesList, selectedEntry: $selectedEntry).environmentObject(userSequencesViewModel)
                 }
             }.padding(.horizontal, 8)
-        })
-    }
-    
-    var playLoadSaveView: AnyView {
-        return AnyView(VStack(alignment: .leading) {
-            Text("Play, load, save".uppercased())
-                .font(.headline)
-                .padding(.bottom, 8)
-            HStack(spacing: 16) {
-                Spacer()
-                Button(action: {
-                    if !sequencerViewModel.isPlaying {
-                        selectedEntry = []
-                        sequencerViewModel.generateARandomTenNotesSequence()
-                        sequencerViewModel.isPlaying = true
-                    } else {
-                        sequencerViewModel.stopPlaying()
-                        selectedEntry = []
-                        sequencerViewModel.isPlaying = false
-                    }
-                }, label: {
-                    Image(systemName: sequencerViewModel.isPlaying ? "playpause.fill" : "playpause")
-                        .font(.system(size: assetsSize))
-                })
-                
-                if userSequencesViewModel.storedSequences.count > 0 {
-                    Button(action: {
-                        showSequencesList = true
-                    }, label: {
-                        Image(systemName: "list.dash")
-                            .font(.system(size: assetsSize))
-                    })
-                } else {
-                    Image(systemName: "list.dash")
-                        .font(.system(size: assetsSize))
-                        .foregroundColor(.gray)
-                }
-                
-                Button(action: {
-                    userSequencesViewModel.addNewSequence(notesToStore: sequencerViewModel.noteFrequenciesToPlay)
-                }, label: {
-                    Image(systemName: "square.and.arrow.down")
-                        .font(.system(size: assetsSize))
-                        .offset(y: -3)
-                })
-                Spacer()
-            }
-            NavigationLink("", isActive: $showSequencesList) {
-                StoredSequencesView(showView: $showSequencesList, selectedEntry: $selectedEntry).environmentObject(userSequencesViewModel)
-            }
-           
         })
     }
 }
