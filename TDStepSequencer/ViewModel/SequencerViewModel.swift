@@ -14,12 +14,13 @@ class SequencerViewModel: ObservableObject {
     var timer: Timer?
     var counter = 0
     var bpm: Int = 120 //house music tempo
-    var rate: Double = SequencerRate.eight.rawValue //the most common rate among the step sequencers is sixteenth, but for the example purposes I set it slower
+    var rate: SequencerRate = SequencerRate.eight //the most common rate among the step sequencers is sixteenth, but for the example purposes I set it slower
     private var currentVolume: Float = 0.5
+    var currentWaveform: Oscillator.Waveform = .saw
         
     //example: 120 bpm means 120 quarter notes / minute -> 2 quarter notes / second -> 1 quarter note / 0.5 second. So for a rate of 1/4 and bpm of 120, we need to multiplly by 4 to get 0.5s at the end
     var sequencerTimeInterval: Double {
-        return rate * 4 * (60 / Double(bpm))
+        return rate.rawValue * 4 * (60 / Double(bpm))
     }
     
     func playLoadedSequence(sequence: [Float]) {
@@ -55,19 +56,22 @@ class SequencerViewModel: ObservableObject {
     }
     
     func setRate(rate: SequencerRate) {
-        self.rate = rate.rawValue
+        self.rate = rate
     }
     
     func setWaveformTo(waveform: Oscillator.Waveform) {
         switch waveform {
         case .sine:
             currentVolume = 0.5
+            currentWaveform = .sine
             SoundEngine.shared.signal = Oscillator.sine
         case .saw:
             currentVolume = 0.15
+            currentWaveform = .saw
             SoundEngine.shared.signal = Oscillator.saw
         case .square:
             currentVolume = 0.15
+            currentWaveform = .square
             SoundEngine.shared.signal = Oscillator.square
         }
     }

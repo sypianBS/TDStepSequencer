@@ -29,38 +29,12 @@ struct ContentView: View {
                     .padding(.horizontal, 16)
             }
             .onChange(of: selectedWaveform, perform: {
-                val in
-                var newWaveform: Oscillator.Waveform
-                switch val {
-                case 0:
-                    newWaveform = .saw
-                case 1:
-                    newWaveform = .square
-                case 2:
-                    newWaveform = .sine
-                default:
-                    newWaveform = .saw //should never happen
-                }
-                sequencerViewModel.setWaveformTo(waveform: newWaveform)
+                _ in
+                sequencerViewModel.setWaveformTo(waveform: newSelectedWaveform)
             })
             .onChange(of: selectedRate, perform: {
-                val in
-                var newRate: SequencerRate = .eight
-                switch val {
-                case 0:
-                    newRate = .whole
-                case 1:
-                    newRate = .half
-                case 2:
-                    newRate = .quarter
-                case 3:
-                    newRate = .eight
-                case 4:
-                    newRate = .sixteenth
-                default:
-                    newRate = .sixteenth
-                }
-                sequencerViewModel.setRate(rate: newRate)
+                _ in
+                sequencerViewModel.setRate(rate: newSequencerdRate)
             }).onChange(of: bpm, perform: {
                 newBPM in
                 sequencerViewModel.setBpm(bpm: newBPM)
@@ -74,6 +48,35 @@ struct ContentView: View {
             })
         }
     }
+    var newSelectedWaveform: Oscillator.Waveform {
+        switch selectedWaveform {
+        case 0:
+            return .saw
+        case 1:
+            return .square
+        case 2:
+            return .sine
+        default:
+            return .saw //should never happen
+        }
+    }
+    
+    var newSequencerdRate: SequencerRate {
+        switch selectedRate {
+        case 0:
+            return .whole
+        case 1:
+            return .half
+        case 2:
+            return .quarter
+        case 3:
+            return .eight
+        case 4:
+            return .sixteenth
+        default:
+            return .sixteenth
+        }
+    }
     
     var playbackSettingsView: AnyView {
         return AnyView(VStack(alignment: .leading) {
@@ -82,9 +85,9 @@ struct ContentView: View {
                     .foregroundColor(.white)
                     .font(.headline)
                 HStack(spacing: 80) {
-                    RotationKnobView(currentChoice: $bpm, numberOfChoices: 180, knobDescription: "BPM")
-                    RotationKnobView(currentChoice: $selectedRate, numberOfChoices: 5, knobDescription: "Wave")
-                    RotationKnobView(currentChoice: $selectedWaveform, numberOfChoices: 3, knobDescription: "Rate")
+                    RotationKnobView(currentChoice: $bpm, knobType: .bpm, numberOfChoices: 180, knobDescription: "BPM").environmentObject(sequencerViewModel)
+                    RotationKnobView(currentChoice: $selectedRate, knobType: .rate, numberOfChoices: 5, knobDescription: "Rate").environmentObject(sequencerViewModel)
+                    RotationKnobView(currentChoice: $selectedWaveform, knobType: .waveform, numberOfChoices: 3, knobDescription: "Osc").environmentObject(sequencerViewModel)
                 }
                 HStack {
                     PlayButtonView(selectedEntry: $selectedEntry).environmentObject(sequencerViewModel)

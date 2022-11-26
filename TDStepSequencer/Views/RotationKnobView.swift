@@ -17,6 +17,16 @@ struct RotationKnobView: View {
     @State private var upcomingQuadrant: Quadrant = .one
     @Binding var currentChoice: Int
     
+    @EnvironmentObject var sequencerViewModel: SequencerViewModel
+    
+    var knobType: KnobType
+    
+    enum KnobType {
+        case bpm
+        case waveform
+        case rate
+    }
+    
     //MARK: - Configurable properties
     var lineThickness:LineThickness = .max
     var indicatorDiameter = 40.0 //adapt size of the knob
@@ -62,10 +72,38 @@ struct RotationKnobView: View {
         }
     }
     
-    var valueIndicator: some View {
-        Text(currentChoice.description)
-            .foregroundColor(.white)
-            .bold()
+    var waveformToShow: UIImage {
+        switch sequencerViewModel.currentWaveform {
+        case .sine:
+            return UIImage(named: "sine-wave")!
+        case .saw:
+            return UIImage(named: "sawtooth-wave")!
+        case .square:
+            return UIImage(named: "square-wave")!
+        }
+    }
+    
+    var valueIndicator: AnyView {
+        switch knobType {
+        case .bpm:
+            return AnyView(
+                Text(sequencerViewModel.bpm.description)
+                    .foregroundColor(.white)
+                    .bold()
+            )
+        case .waveform:
+            return AnyView(
+                Image(uiImage: waveformToShow)
+                    .renderingMode(.template)
+                    .foregroundColor(.white)
+            )
+        case .rate:
+            return AnyView(
+                Text(String(describing: sequencerViewModel.rate))
+                    .foregroundColor(.white)
+                    .bold()
+            )
+        }
     }
     
     var knobDescriptionView: some View {
