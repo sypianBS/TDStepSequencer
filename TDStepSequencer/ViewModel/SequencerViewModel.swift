@@ -14,7 +14,7 @@ class SequencerViewModel: ObservableObject {
     var timer: Timer?
     var counter = 0
     @Published var bpm: Int = 120 //house music tempo
-    @Published var rate: SequencerRate = SequencerRate.eight //the most common rate among the step sequencers is sixteenth, but for the example purposes I set it slower
+    @Published var rate: SequencerRate = SequencerRate.eight
     private var currentVolume: Float = 0.5
     @Published var currentWaveform: Oscillator.Waveform = .saw
         
@@ -23,6 +23,7 @@ class SequencerViewModel: ObservableObject {
         return rate.rawValue * 4 * (60 / Double(bpm))
     }
     
+    //note: if there is no sound, try to check the input source and make sure it is not the Soundflower / Blackhole If it is, change to the internal microphone and then rebuild the project
     func playLoadedSequence(sequence: [Float]) {
         noteFrequenciesToPlay = sequence
         self.startTimer()

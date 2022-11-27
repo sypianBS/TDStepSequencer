@@ -69,6 +69,16 @@ struct RotationKnobView: View {
                 valueIndicator
             }.padding(.bottom, 16)
             knobDescriptionView
+        }.onAppear {
+            switch knobType {
+            case .bpm:
+                let bpmStartAngle = Double(360.0 * (Double(Double(sequencerViewModel.bpm) / 180.0)))
+                setAngleOfIndicator(to: bpmStartAngle)
+            case .waveform:
+                setAngleOfIndicator(to: 0)
+            case .rate:
+                setAngleOfIndicator(to: 0.6*360.0)
+            }
         }
     }
     
