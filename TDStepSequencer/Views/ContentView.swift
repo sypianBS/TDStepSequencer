@@ -37,7 +37,8 @@ struct ContentView: View {
                 sequencerViewModel.setRate(rate: newSequencerdRate)
             }).onChange(of: bpm, perform: {
                 newBPM in
-                sequencerViewModel.setBpm(bpm: newBPM)
+                let adjustedBPM = newBPM + 20 //range is then 20..<200 instead of 0..<180
+                sequencerViewModel.setBpm(bpm: adjustedBPM)
             }).onChange(of: selectedEntry, perform: {
                 _ in
                 if selectedEntry.count > 0 {

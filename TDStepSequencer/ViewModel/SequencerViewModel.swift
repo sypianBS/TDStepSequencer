@@ -13,10 +13,10 @@ class SequencerViewModel: ObservableObject {
     let userDefaults = UserDefaults.standard
     var timer: Timer?
     var counter = 0
-    var bpm: Int = 120 //house music tempo
-    var rate: SequencerRate = SequencerRate.eight //the most common rate among the step sequencers is sixteenth, but for the example purposes I set it slower
+    @Published var bpm: Int = 120 //house music tempo
+    @Published var rate: SequencerRate = SequencerRate.eight //the most common rate among the step sequencers is sixteenth, but for the example purposes I set it slower
     private var currentVolume: Float = 0.5
-    var currentWaveform: Oscillator.Waveform = .saw
+    @Published var currentWaveform: Oscillator.Waveform = .saw
         
     //example: 120 bpm means 120 quarter notes / minute -> 2 quarter notes / second -> 1 quarter note / 0.5 second. So for a rate of 1/4 and bpm of 120, we need to multiplly by 4 to get 0.5s at the end
     var sequencerTimeInterval: Double {
