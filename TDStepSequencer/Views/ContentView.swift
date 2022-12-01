@@ -10,8 +10,8 @@ import SwiftUI
 struct ContentView: View {
     typealias Pitch = SoundEngine.Pitch
     typealias SequencerRate = SequencerViewModel.SequencerRate
-    @StateObject var sequencerViewModel = SequencerViewModel()
-    @StateObject var userSequencesViewModel = UserSequencesViewModel()
+    @EnvironmentObject var sequencerViewModel: SequencerViewModel
+    @EnvironmentObject var userSequencesViewModel: UserSequencesViewModel
     @State var selectedPitch: Float? = nil
     @State private var bpm = 120
     @State var showSequencesList = false
@@ -86,17 +86,17 @@ struct ContentView: View {
                     .foregroundColor(.white)
                     .font(.headline)
                 HStack(spacing: 80) {
-                    RotationKnobView(currentChoice: $bpm, knobType: .bpm, numberOfChoices: 180, knobDescription: "BPM").environmentObject(sequencerViewModel)
-                    RotationKnobView(currentChoice: $selectedRate, knobType: .rate, numberOfChoices: 5, knobDescription: "Rate").environmentObject(sequencerViewModel)
-                    RotationKnobView(currentChoice: $selectedWaveform, knobType: .waveform, numberOfChoices: 3, knobDescription: "Osc").environmentObject(sequencerViewModel)
+                    RotationKnobView(currentChoice: $bpm, knobType: .bpm, numberOfChoices: 180, knobDescription: "BPM")
+                    RotationKnobView(currentChoice: $selectedRate, knobType: .rate, numberOfChoices: 5, knobDescription: "Rate")
+                    RotationKnobView(currentChoice: $selectedWaveform, knobType: .waveform, numberOfChoices: 3, knobDescription: "Osc")
                 }
                 HStack {
-                    PlayButtonView(selectedEntry: $selectedEntry).environmentObject(sequencerViewModel)
-                    LoadSequenceView(showSequencesList: $showSequencesList).environmentObject(userSequencesViewModel)
-                    SaveSequenceView().environmentObject(sequencerViewModel).environmentObject(userSequencesViewModel)
+                    PlayButtonView(selectedEntry: $selectedEntry)
+                    LoadSequenceView(showSequencesList: $showSequencesList)
+                    SaveSequenceView()
                 }
                 NavigationLink("", isActive: $showSequencesList) {
-                    StoredSequencesView(showView: $showSequencesList, selectedEntry: $selectedEntry).environmentObject(userSequencesViewModel)
+                    StoredSequencesView(showView: $showSequencesList, selectedEntry: $selectedEntry)
                 }
             }.padding(.horizontal, 8)
         })
