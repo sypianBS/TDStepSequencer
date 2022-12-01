@@ -47,7 +47,7 @@ struct ContentView: View {
                     selectedEntry = []
                 }
             })
-        }
+        }.environment(\.colorScheme, .dark)
     }
     var newSelectedWaveform: Oscillator.Waveform {
         switch selectedWaveform {
