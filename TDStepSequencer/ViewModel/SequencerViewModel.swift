@@ -6,21 +6,86 @@
 //
 
 import Foundation
+import Combine
 
 class SequencerViewModel: ObservableObject {
     @Published var noteFrequenciesToPlay: [Float] = []
     @Published var isPlaying = false
+    @Published var bpm: Int = 120 //house music tempo
+    @Published var rate: SequencerRate = SequencerRate.eight
+    @Published var currentWaveform: Oscillator.Waveform = .saw
+    @Published private var currentBPM: Int = 120
+    @Published var selectedRate = 8 // SequencerRate = .eight
+    @Published var selectedWaveform = 0 // Oscillator.Waveform = .saw
+    @Published var selectedEntry: [Float] = []
+    
+    private var currentVolume: Float = 0.5
     let userDefaults = UserDefaults.standard
     var timer: Timer?
     var counter = 0
-    @Published var bpm: Int = 120 //house music tempo
-    @Published var rate: SequencerRate = SequencerRate.eight
-    private var currentVolume: Float = 0.5
-    @Published var currentWaveform: Oscillator.Waveform = .saw
+    private var cancellables: Set<AnyCancellable> = []
+
+    
+    init() {
+        $selectedRate.sink { [weak self] _ in
+            guard let self = self else { return }
+            self.setRate(rate: self.newSequencerdRate)
+        }.store(in: &cancellables)
+
+        $selectedWaveform.sink { [weak self] _ in
+            guard let self = self else { return }
+            self.setWaveformTo(waveform: self.newSelectedWaveform)
+        }.store(in: &cancellables)
+
+        $bpm.sink { [weak self] newBPM in
+            guard let self = self else { return }
+            let adjustedBPM = newBPM + 20 //range is then 20..<200 instead of 0..<180
+            self.currentBPM = adjustedBPM
+        }.store(in: &cancellables)
+
+        $selectedEntry.sink { [weak self] _ in
+            guard let self = self else { return }
+            if self.selectedEntry.count > 0 {
+                self.playLoadedSequence(sequence: self.selectedEntry)
+                self.isPlaying = true
+                self.selectedEntry = []
+            }
+        }.store(in: &cancellables)
+    }
+    
+    var newSequencerdRate: SequencerRate {
+        switch selectedRate {
+        case 0:
+            return .whole
+        case 1:
+            return .half
+        case 2:
+            return .quarter
+        case 3:
+            return .eight
+        case 4:
+            return .sixteenth
+        default:
+            return .sixteenth
+        }
+    }
+    
+    var newSelectedWaveform: Oscillator.Waveform {
+        switch selectedWaveform {
+        case 0:
+            return .saw
+        case 1:
+            return .square
+        case 2:
+            return .sine
+        default:
+            return .saw //should never happen
+        }
+    }
         
     //example: 120 bpm means 120 quarter notes / minute -> 2 quarter notes / second -> 1 quarter note / 0.5 second. So for a rate of 1/4 and bpm of 120, we need to multiplly by 4 to get 0.5s at the end
     var sequencerTimeInterval: Double {
-        return rate.rawValue * 4 * (60 / Double(bpm))
+        return rate.rawValue * 4 * (60 / Double(currentBPM))
     }
     
     //note: if there is no sound, try to check the input source and make sure it is not the Soundflower / Blackhole If it is, change to the internal microphone and then rebuild the project
@@ -50,10 +115,6 @@ class SequencerViewModel: ObservableObject {
     
     private func startTimer() {
         timer = Timer.scheduledTimer(timeInterval: sequencerTimeInterval, target: self, selector: #selector(updateTimer), userInfo: nil, repeats: true)
-    }
-    
-    func setBpm(bpm: Int) {
-        self.bpm = bpm
     }
     
     func setRate(rate: SequencerRate) {

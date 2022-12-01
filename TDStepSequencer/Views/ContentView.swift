@@ -13,11 +13,7 @@ struct ContentView: View {
     @EnvironmentObject var sequencerViewModel: SequencerViewModel
     @EnvironmentObject var userSequencesViewModel: UserSequencesViewModel
     @State var selectedPitch: Float? = nil
-    @State private var bpm = 120
     @State var showSequencesList = false
-    @State var selectedRate = 8 // SequencerRate = .eight
-    @State var selectedWaveform = 0 // Oscillator.Waveform = .saw
-    @State var selectedEntry: [Float] = []
     let assetsSize: CGFloat = 24
     
     var body: some View {
@@ -28,57 +24,11 @@ struct ContentView: View {
                 playbackSettingsView
                     .padding(.horizontal, 16)
             }
-            .onChange(of: selectedWaveform, perform: {
-                _ in
-                sequencerViewModel.setWaveformTo(waveform: newSelectedWaveform)
-            })
-            .onChange(of: selectedRate, perform: {
-                _ in
-                sequencerViewModel.setRate(rate: newSequencerdRate)
-            }).onChange(of: bpm, perform: {
-                newBPM in
-                let adjustedBPM = newBPM + 20 //range is then 20..<200 instead of 0..<180
-                sequencerViewModel.setBpm(bpm: adjustedBPM)
-            }).onChange(of: selectedEntry, perform: {
-                _ in
-                if selectedEntry.count > 0 {
-                    sequencerViewModel.playLoadedSequence(sequence: selectedEntry)
-                    sequencerViewModel.isPlaying = true
-                    selectedEntry = []
-                }
-            })
         }.environment(\.colorScheme, .dark)
     }
-    var newSelectedWaveform: Oscillator.Waveform {
-        switch selectedWaveform {
-        case 0:
-            return .saw
-        case 1:
-            return .square
-        case 2:
-            return .sine
-        default:
-            return .saw //should never happen
-        }
-    }
-    
-    var newSequencerdRate: SequencerRate {
-        switch selectedRate {
-        case 0:
-            return .whole
-        case 1:
-            return .half
-        case 2:
-            return .quarter
-        case 3:
-            return .eight
-        case 4:
-            return .sixteenth
-        default:
-            return .sixteenth
-        }
-    }
-    
+}
+
+extension ContentView {
     var playbackSettingsView: AnyView {
         return AnyView(VStack(alignment: .leading) {
             VStack(spacing: 48) {
@@ -86,17 +36,17 @@ struct ContentView: View {
                     .foregroundColor(.white)
                     .font(.headline)
                 HStack(spacing: 80) {
-                    RotationKnobView(currentChoice: $bpm, knobType: .bpm, numberOfChoices: 180, knobDescription: "BPM")
-                    RotationKnobView(currentChoice: $selectedRate, knobType: .rate, numberOfChoices: 5, knobDescription: "Rate")
-                    RotationKnobView(currentChoice: $selectedWaveform, knobType: .waveform, numberOfChoices: 3, knobDescription: "Osc")
+                    RotationKnobView(currentChoice: $sequencerViewModel.bpm, knobType: .bpm, numberOfChoices: 180, knobDescription: "BPM")
+                    RotationKnobView(currentChoice: $sequencerViewModel.selectedRate, knobType: .rate, numberOfChoices: 5, knobDescription: "Rate")
+                    RotationKnobView(currentChoice: $sequencerViewModel.selectedWaveform, knobType: .waveform, numberOfChoices: 3, knobDescription: "Osc")
                 }
                 HStack {
-                    PlayButtonView(selectedEntry: $selectedEntry)
+                    PlayButtonView(selectedEntry: $sequencerViewModel.selectedEntry)
                     LoadSequenceView(showSequencesList: $showSequencesList)
                     SaveSequenceView()
                 }
                 NavigationLink("", isActive: $showSequencesList) {
-                    StoredSequencesView(showView: $showSequencesList, selectedEntry: $selectedEntry)
+                    StoredSequencesView(showView: $showSequencesList, selectedEntry: $sequencerViewModel.selectedEntry)
                 }
             }.padding(.horizontal, 8)
         })
